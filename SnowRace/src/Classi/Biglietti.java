@@ -1,16 +1,17 @@
 package classi;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Biglietti {
     private Utenti utente;
     private Piste pista;
-    private Date data;
+    private LocalDate data;
 
-    public Biglietti(Utenti utente, Piste pista, Date data) {
+    public Biglietti(Utenti utente, Piste pista, LocalDate date) {
         this.utente = utente;
         this.pista = pista;
-        this.data = data;
+        this.data = date;
     }
 
     public Utenti getUtente() {
@@ -29,20 +30,11 @@ public class Biglietti {
         this.pista = pista;
     }
 
-    public Date getData() {
+    public LocalDate getDate() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setDate(LocalDate data) {
         this.data = data;
-    }
-
-    @Override
-    public String toString() {
-        return "Biglietti{" +
-                "utente=" + utente +
-                ", pista=" + pista +
-                ", data=" + data +
-                '}';
     }
 }

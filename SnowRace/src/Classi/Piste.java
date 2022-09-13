@@ -3,8 +3,9 @@ package classi;
 public class Piste {
     private int numero;
     private Impianti impianto;
+
     public Piste(int numero, Impianti impianto){
-        this.impianto=impianto;
+        this.impianto = impianto;
         this.numero = numero;
     }
 

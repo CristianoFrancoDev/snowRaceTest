@@ -2,11 +2,11 @@ package classi;
 
 public class Noleggi {
     private Attrezzature attrezzatura;
-    private Biglietti biglietto;
+    private Biglietti biglietti;
 
-    public Noleggi(Attrezzature attrezzatura, Biglietti biglietto) {
+    public Noleggi(Attrezzature attrezzatura, Biglietti biglietti) {
         this.attrezzatura = attrezzatura;
-        this.biglietto = biglietto;
+        this.biglietti = biglietti;
     }
 
     public Attrezzature getAttrezzatura() {
@@ -17,19 +17,11 @@ public class Noleggi {
         this.attrezzatura = attrezzatura;
     }
 
-    public Biglietti getBiglietto() {
-        return biglietto;
+    public Biglietti getBiglietti() {
+        return biglietti;
     }
 
-    public void setBiglietto(Biglietti biglietto) {
-        this.biglietto = biglietto;
-    }
-
-    @Override
-    public String toString() {
-        return "Noleggi{" +
-                "attrezzatura=" + attrezzatura +
-                ", biglietto=" + biglietto +
-                '}';
+    public void setBiglietti(Biglietti biglietti) {
+        this.biglietti = biglietti;
     }
 }

@@ -6,7 +6,6 @@ public class Impianti {
     private String foto;
     private double prezzo;
 
-
     public Impianti(String titolo, String descrizione, String foto, double prezzo) {
         this.titolo = titolo;
         this.descrizione = descrizione;
@@ -56,4 +55,3 @@ public class Impianti {
                 '}';
     }
 }
-

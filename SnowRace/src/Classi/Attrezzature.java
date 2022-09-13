@@ -14,11 +14,4 @@ public class Attrezzature {
     public void setArticolo(String articolo) {
         this.articolo = articolo;
     }
-
-    @Override
-    public String toString() {
-        return "Attrezzature{" +
-                "articolo='" + articolo + '\'' +
-                '}';
-    }
 }

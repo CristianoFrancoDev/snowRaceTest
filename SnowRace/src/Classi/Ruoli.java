@@ -1,13 +1,13 @@
 package classi;
 
-public class Ruoli {
+public class Ruoli
+{
+    //Costruttore
+    public Ruoli(){}
 
-    public Ruoli() {
-    }
     public enum tipo {
-        amministratore,
-        admin,
-        user;
+        AMMINISTRATORE,
+        ADMIN,
+        USER;
     }
-
 }
