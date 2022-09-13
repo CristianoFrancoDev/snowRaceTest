@@ -1,16 +1,13 @@
-package Classi;
+package classi;
 
 public class Ruoli {
 
-
     public Ruoli() {
     }
-
-   public enum tipo {
+    public enum tipo {
         amministratore,
-       admin,
-       user;
+        admin,
+        user;
     }
-
 
 }
