@@ -1,15 +1,27 @@
 package test;
 
 import controller.Controller;
+import dao.Dao_Users;
+import model.Ruolo;
 import model.Utente;
+import singleton.LinkDB;
 import view.Menu;
 
 public class Main
 {
+    public static LinkDB linkDB;
 
     public static void main(String[] args)
     {
         String nome;
+
+        //istanziazione classe singleton
+        linkDB = LinkDB.getInstance();
+
+        //////////////////////////////////////
+//        Utente temp = new Utente(5,"Aldo2", null, "Bn", Ruolo.USER, "12345678", false);
+//        Dao_Users.deleteUser(temp);
+        /////////////////////////////////////
 
         Menu menu = new Menu();
 
@@ -29,27 +41,31 @@ public class Main
 
         if (controller.userExists(nome))
         {
-            boolean passOk = false;
-
-            //controllo password
-            for (int x = 0; x < 3; x++)
+            if (controller.checkUserIsActive(nome))
             {
-                //richiesta password
-                String password = menu.askPassword("Inserire la password: ");
+                boolean passOk = false;
 
-                if (controller.checkPassword(nome, password))
+                //controllo password
+                for (int x = 0; x < 3; x++)
                 {
-                    passOk = true;
-                    break;
-                } else
-                    System.out.println("Password errata!");
-            }
+                    //richiesta password
+                    String password = menu.askPassword("Inserire la password: ");
 
-            if (passOk)
-            {
-                menu.askUser();
-            }
+                    if (controller.checkPassword(nome, password))
+                    {
+                        passOk = true;
+                        break;
+                    } else
+                        System.out.println("Password errata!");
+                }
 
+                if (passOk)
+                {
+                    menu.askUser();
+                }
+            }
+            else
+                System.out.println("Utente inesistente!");
         }
         else
         {

@@ -3,12 +3,24 @@ package model;
 public class Utente
 {
     //variabili di istanza
+    private int id;
     private String nome;
     private String indirizzo;
     private String luogo;
     private Ruolo ruolo;
     private String password;
     private boolean cancellato;
+
+    public Utente(int id, String nome, String indirizzo, String luogo, Ruolo ruolo, String password, boolean cancellato)
+    {
+        this.id = id;
+        this.nome = nome;
+        this.indirizzo = indirizzo;
+        this.luogo = luogo;
+        this.ruolo = ruolo;
+        this.password = password;
+        this.cancellato = cancellato;
+    }
 
     //Costruttore
     public Utente(String nome, String indirizzo, String luogo, Ruolo ruolo, String password, boolean cancellato)
@@ -19,6 +31,16 @@ public class Utente
         this.ruolo = ruolo;
         this.password = password;
         this.cancellato = cancellato;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public String getNome() {

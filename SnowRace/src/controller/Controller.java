@@ -2,8 +2,6 @@ package controller;
 
 import dao.Dao_Users;
 import model.Utente;
-import util.CryptoHelper;
-
 import java.sql.*;
 
 public class Controller
@@ -58,6 +56,13 @@ public class Controller
         }
 
         return response;
+    }
+
+    public boolean checkUserIsActive(String nome)
+    {
+        Utente utente = Dao_Users.findUser(nome);
+
+        return !utente.isCancellato();
     }
 
     public boolean checkPassword(String nome, String passwordDecrypted)
