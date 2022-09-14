@@ -1,9 +1,10 @@
-package classi;
+package model;
 
-public class Attrezzature {
+public class Attrezzatura
+{
     private String articolo;
 
-    public Attrezzature(String articolo) {
+    public Attrezzatura(String articolo) {
         this.articolo = articolo;
     }
 

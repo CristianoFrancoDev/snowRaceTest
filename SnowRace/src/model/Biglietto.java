@@ -1,32 +1,32 @@
-package classi;
+package model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-public class Biglietti {
-    private Utenti utente;
-    private Piste pista;
+public class Biglietto
+{
+    private Utente utente;
+    private Pista pista;
     private LocalDate data;
 
-    public Biglietti(Utenti utente, Piste pista, LocalDate date) {
+    public Biglietto(Utente utente, Pista pista, LocalDate date) {
         this.utente = utente;
         this.pista = pista;
         this.data = date;
     }
 
-    public Utenti getUtente() {
+    public Utente getUtente() {
         return utente;
     }
 
-    public void setUtente(Utenti utente) {
+    public void setUtente(Utente utente) {
         this.utente = utente;
     }
 
-    public Piste getPista() {
+    public Pista getPista() {
         return pista;
     }
 
-    public void setPista(Piste pista) {
+    public void setPista(Pista pista) {
         this.pista = pista;
     }
 

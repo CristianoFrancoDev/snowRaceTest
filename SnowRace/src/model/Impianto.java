@@ -1,12 +1,14 @@
-package classi;
+package model;
 
-public class Impianti {
+public class Impianto
+{
     private String titolo;
     private String descrizione;
     private String foto;
     private double prezzo;
 
-    public Impianti(String titolo, String descrizione, String foto, double prezzo) {
+    public Impianto(String titolo, String descrizione, String foto, double prezzo)
+    {
         this.titolo = titolo;
         this.descrizione = descrizione;
         this.foto = foto;

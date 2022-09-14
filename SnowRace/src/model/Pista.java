@@ -1,10 +1,12 @@
-package classi;
+package model;
 
-public class Piste {
+public class Pista
+{
     private int numero;
-    private Impianti impianto;
+    private Impianto impianto;
 
-    public Piste(int numero, Impianti impianto){
+    public Pista(int numero, Impianto impianto)
+    {
         this.impianto = impianto;
         this.numero = numero;
     }
@@ -17,11 +19,11 @@ public class Piste {
         this.numero = numero;
     }
 
-    public Impianti getImpianto() {
+    public Impianto getImpianto() {
         return impianto;
     }
 
-    public void setImpianto(Impianti impianto) {
+    public void setImpianto(Impianto impianto) {
         this.impianto = impianto;
     }
 

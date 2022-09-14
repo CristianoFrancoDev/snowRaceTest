@@ -1,16 +1,17 @@
-package classi;
+package model;
 
-public class Utenti {
+public class Utente
+{
     //variabili di istanza
     private String nome;
     private String indirizzo;
     private String luogo;
-    private Ruoli.tipo ruolo;
+    private Ruolo ruolo;
     private String password;
     private boolean cancellato;
 
     //Costruttore
-    public Utenti(String nome, String indirizzo, String luogo, Ruoli.tipo ruolo, String password, boolean cancellato)
+    public Utente(String nome, String indirizzo, String luogo, Ruolo ruolo, String password, boolean cancellato)
     {
         this.nome = nome;
         this.indirizzo = indirizzo;
@@ -32,7 +33,7 @@ public class Utenti {
         return luogo;
     }
 
-    public Ruoli.tipo getRuolo() {
+    public Ruolo getRuolo() {
         return ruolo;
     }
 
@@ -56,7 +57,7 @@ public class Utenti {
         this.luogo = luogo;
     }
 
-    public void setRuolo(Ruoli.tipo ruolo) {
+    public void setRuolo(Ruolo ruolo) {
         this.ruolo = ruolo;
     }
 
