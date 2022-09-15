@@ -92,6 +92,23 @@ public class Utente
     }
 
     @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Utente utente = (Utente) o;
+
+        return getId() == utente.getId();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return getId();
+    }
+
+    @Override
     public String toString() {
         return "Utenti{" +
                 "nome='" + nome + '\'' +

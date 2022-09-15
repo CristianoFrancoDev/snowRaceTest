@@ -68,6 +68,23 @@ public class Impianto
     }
 
     @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Impianto impianto = (Impianto) o;
+
+        return getId() == impianto.getId();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return getId();
+    }
+
+    @Override
     public String toString() {
         return "Impianti{" +
                 "titolo='" + titolo + '\'' +

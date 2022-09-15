@@ -23,6 +23,43 @@ public class Biglietto
         this.data = date;
     }
 
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public LocalDate getData()
+    {
+        return data;
+    }
+
+    public void setData(LocalDate data)
+    {
+        this.data = data;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Biglietto biglietto = (Biglietto) o;
+
+        return id == biglietto.id;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return id;
+    }
+
     public Utente getUtente() {
         return utente;
     }

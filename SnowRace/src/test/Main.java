@@ -2,23 +2,15 @@ package test;
 
 import controller.Controller;
 import dao.Dao_Impianti;
-import dao.Dao_Users;
 import model.Impianto;
-import model.Ruolo;
 import model.Utente;
-import singleton.LinkDB;
 import view.Menu;
 
 public class Main
 {
-    public static LinkDB linkDB;
-
     public static void main(String[] args)
     {
         String nome;
-
-        //istanziazione classe singleton
-        linkDB = LinkDB.getInstance();
 
         //////////////////////////////////////
 //        Utente temp = new Utente(5,"Aldo2", null, "Bn", Ruolo.USER, "12345678", false);
