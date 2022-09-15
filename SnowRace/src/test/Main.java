@@ -1,13 +1,16 @@
 package test;
 
 import controller.Controller;
-import dao.Dao_Impianti;
+import dao.Dao_Biglietti;
+import dao.Dao_Piste;
 import dao.Dao_Users;
 import model.Impianto;
-import model.Ruolo;
+import model.Pista;
 import model.Utente;
 import singleton.LinkDB;
 import view.Menu;
+
+import java.time.LocalDate;
 
 public class Main
 {
@@ -20,11 +23,22 @@ public class Main
         //istanziazione classe singleton
         linkDB = LinkDB.getInstance();
 
-        //////////////////////////////////////
 //        Utente temp = new Utente(5,"Aldo2", null, "Bn", Ruolo.USER, "12345678", false);
+        Impianto impianto = new Impianto(1,"matese", "neve", "yyay", 10.0);
+        Pista p = new Pista(3, "asfaffasfa", impianto);
+        LocalDate date = LocalDate.of(2022,12,25);
+
+//        Dao_Biglietti.acquistoBiglietto(Dao_Users.findUser("gino"),Dao_Piste.findPistaById(4),date);
+
+        Dao_Biglietti.findBigliettoByUserId(Dao_Users.findUser("gino"));
+
+        System.out.println("CIAO CIAO \n \n");
+        boolean b = Dao_Piste.updatePista(4, "CAVALLO");
+
+
+        //////////////////////////////////////
 //        Dao_Users.deleteUser(temp);
-        Impianto impianto = new Impianto(1,"matese", "neve", "yyy", 10.0);
-        Dao_Impianti.saveImpianto(impianto);
+//        Dao_Impianti.saveImpianto(impianto);
         /////////////////////////////////////
 
         Menu menu = new Menu();

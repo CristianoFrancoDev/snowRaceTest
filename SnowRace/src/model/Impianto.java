@@ -25,6 +25,10 @@ public class Impianto
         this.prezzo = prezzo;
     }
 
+    public Impianto() {
+
+    }
+
     public int getId()
     {
         return id;

@@ -2,21 +2,32 @@ package model;
 
 public class Pista
 {
-    private int numero;
+    private int id;
+    private String titolo;
     private Impianto impianto;
 
-    public Pista(int numero, Impianto impianto)
+    public Pista(int id, String titolo, Impianto impianto)
+    {
+        this.id = id;
+        this.impianto = impianto;
+        this.titolo = titolo;
+    }
+
+    public Pista(String titolo, Impianto impianto)
     {
         this.impianto = impianto;
-        this.numero = numero;
+        this.titolo = titolo;
     }
 
-    public int getNumero() {
-        return numero;
+    public int getId(){
+        return id;
+    }
+    public String getTitolo() {
+        return titolo;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
 
     public Impianto getImpianto() {
@@ -30,7 +41,7 @@ public class Pista
     @Override
     public String toString() {
         return "Piste{" +
-                "numero=" + numero +
+                "titolo=" + titolo +
                 ", impianto=" + impianto +
                 '}';
     }

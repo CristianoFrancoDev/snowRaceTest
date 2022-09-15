@@ -46,4 +46,14 @@ public class Biglietto
     public void setDate(LocalDate data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "Biglietto{" +
+                "id=" + id +
+                ", utente=" + utente +
+                ", pista=" + pista +
+                ", data=" + data +
+                '}';
+    }
 }
