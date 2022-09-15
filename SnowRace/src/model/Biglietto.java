@@ -4,9 +4,18 @@ import java.time.LocalDate;
 
 public class Biglietto
 {
+    private int id;
     private Utente utente;
     private Pista pista;
     private LocalDate data;
+
+    public Biglietto(int id, Utente utente, Pista pista, LocalDate data)
+    {
+        this.id = id;
+        this.utente = utente;
+        this.pista = pista;
+        this.data = data;
+    }
 
     public Biglietto(Utente utente, Pista pista, LocalDate date) {
         this.utente = utente;

@@ -2,10 +2,20 @@ package model;
 
 public class Impianto
 {
+    private int id;
     private String titolo;
     private String descrizione;
     private String foto;
     private double prezzo;
+
+    public Impianto(int id, String titolo, String descrizione, String foto, double prezzo)
+    {
+        this.id = id;
+        this.titolo = titolo;
+        this.descrizione = descrizione;
+        this.foto = foto;
+        this.prezzo = prezzo;
+    }
 
     public Impianto(String titolo, String descrizione, String foto, double prezzo)
     {
@@ -13,6 +23,16 @@ public class Impianto
         this.descrizione = descrizione;
         this.foto = foto;
         this.prezzo = prezzo;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public String getTitolo() {

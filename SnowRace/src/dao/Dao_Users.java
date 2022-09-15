@@ -1,13 +1,14 @@
 package dao;
 
+import model.Biglietto;
 import model.Ruolo;
 import model.Utente;
 import test.Main;
 import util.CryptoHelper;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
+import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Dao_Users
 {
@@ -163,5 +164,54 @@ public class Dao_Users
         }
 
         return response;
+    }
+
+    public static Set<Biglietto> getBiglietti(Utente utente)
+    {
+        Set<Biglietto> biglietti = null;
+
+        String sql = "SELECT * FROM biglietti WHERE id_utente = ?";
+
+            connection = Main.linkDB.getConnection();
+
+            try
+            {
+                PreparedStatement statement = connection.prepareStatement(sql);
+
+                statement.setInt(1, utente.getId());
+
+                statement.execute();
+
+                ResultSet resultSet = statement.getResultSet();
+
+                if (resultSet != null)
+                {
+                    Biglietto biglietto;
+
+                    biglietti = new HashSet<>();
+
+                    while (resultSet.next())
+                    {
+//                        biglietto = new Biglietto(resultSet.getInt(1),);
+
+
+
+
+
+
+
+
+
+
+
+                    }
+                }
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+
+        return biglietti;
     }
 }

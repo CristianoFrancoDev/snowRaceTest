@@ -1,7 +1,9 @@
 package test;
 
 import controller.Controller;
+import dao.Dao_Impianti;
 import dao.Dao_Users;
+import model.Impianto;
 import model.Ruolo;
 import model.Utente;
 import singleton.LinkDB;
@@ -21,6 +23,8 @@ public class Main
         //////////////////////////////////////
 //        Utente temp = new Utente(5,"Aldo2", null, "Bn", Ruolo.USER, "12345678", false);
 //        Dao_Users.deleteUser(temp);
+        Impianto impianto = new Impianto(1,"matese", "neve", "yyy", 10.0);
+        Dao_Impianti.saveImpianto(impianto);
         /////////////////////////////////////
 
         Menu menu = new Menu();
