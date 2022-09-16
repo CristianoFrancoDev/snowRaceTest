@@ -75,12 +75,4 @@ public class Biglietto
     public void setPista(Pista pista) {
         this.pista = pista;
     }
-
-    public LocalDate getDate() {
-        return data;
-    }
-
-    public void setDate(LocalDate data) {
-        this.data = data;
-    }
 }

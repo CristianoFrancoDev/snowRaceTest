@@ -5,14 +5,16 @@ import model.Pista;
 import singleton.LinkDB;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Dao_Impianti
 {
-    private static Connection connection;
+    private  Connection connection;
 
-    public static Impianto findById(int id)
+    public Impianto findById(int id)
     {
         Impianto impianto = null;
 
@@ -53,7 +55,44 @@ public class Dao_Impianti
         return impianto;
     }
 
-    public static boolean saveImpianto(Impianto impianto)
+    public List<Impianto> findAll()
+    {
+        List<Impianto> response = new ArrayList<>();
+
+        connection = LinkDB.getConnection();
+
+        String sql = "SELECT * FROM impianti";
+
+        try
+        {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+
+            ResultSet resultSet = statement.getResultSet();
+
+            while (resultSet.next())
+            {
+                response.add(new Impianto(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getDouble(5)));
+            }
+
+            resultSet.close();
+            statement.close();
+            LinkDB.closeConnection();
+        }
+        catch (Exception ex)
+        {
+            response = null;
+            ex.printStackTrace();
+        }
+
+        return response;
+    }
+
+    public boolean save(Impianto impianto)
     {
         String sql;
         PreparedStatement statement;
@@ -127,7 +166,7 @@ public class Dao_Impianti
         return response;
     }
 
-    public static boolean deleteImpianto(Impianto impianto)
+    public boolean delete(Impianto impianto)
     {
         boolean response = true;
 
@@ -159,10 +198,10 @@ public class Dao_Impianti
         return  response;
     }
 
-    public static Set<Pista> getPiste(Impianto impianto)
+    public List<Pista> getPiste(Impianto impianto)
     {
         Pista pista;
-        Set<Pista> response = null;
+        List<Pista> response = new ArrayList<>();
 
         connection = LinkDB.getConnection();
 
@@ -179,15 +218,10 @@ public class Dao_Impianti
 
                 ResultSet resultSet = statement.getResultSet();
 
-                response = new HashSet<>();
-
-                if (resultSet != null)
+                while(resultSet.next())
                 {
-                    while(resultSet.next())
-                    {
-                        pista = new Pista(resultSet.getInt(1), resultSet.getString(2), impianto);
-                        response.add(pista);
-                    }
+                    pista = new Pista(resultSet.getInt(1), resultSet.getString(2), impianto);
+                    response.add(pista);
                 }
 
                 resultSet.close();
@@ -196,11 +230,11 @@ public class Dao_Impianti
             }
             catch (SQLException e)
             {
+                response = null;
                 e.printStackTrace();
             }
         }
 
         return  response;
     }
-    
 }

@@ -6,14 +6,17 @@ import model.Noleggio;
 import singleton.LinkDB;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class Dao_Noleggi
 {
-    private static Connection connection;
-    private static String sql;
+    private Connection connection;
+    private String sql;
 
-    public static Noleggio findById(int id)
+    public Noleggio findById(int id)
     {
+        Dao_Attrezzature daoAttrezzature = new Dao_Attrezzature();
+        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
         Noleggio response = null;
 
         connection = LinkDB.getConnection();
@@ -32,8 +35,8 @@ public class Dao_Noleggi
 
                 if (resultSet.next())
                         response = new Noleggio(resultSet.getInt(1),
-                                Dao_Attrezzatura.findByIdAttrezzatura(resultSet.getInt(2)),
-                                Dao_Biglietti.findByIdBiglietto(resultSet.getInt(3)));
+                                daoAttrezzature.findById(resultSet.getInt(2)),
+                                daoBiglietti.findById(resultSet.getInt(3)));
 
                 resultSet.close();
                 statement.close();
@@ -49,7 +52,7 @@ public class Dao_Noleggi
         return response;
     }
 
-    public static boolean saveNoleggi(Noleggio noleggio)
+    public boolean save(Noleggio noleggio)
     {
         PreparedStatement statement;
         boolean response = true;
@@ -88,11 +91,12 @@ public class Dao_Noleggi
             else
             {
                 //modifica noleggio
-                sql = "UPDATE INTO noleggi (id_attrezzatura, id_biglietto) VALUES (?, ?)";
+                sql = "UPDATE INTO noleggi SET id_attrezzatura = ?, id_biglietto = ? WHERE id = ?";
 
                 statement = connection.prepareStatement(sql);
                 statement.setInt(1,noleggio.getAttrezzatura().getId());
                 statement.setInt(2,noleggio.getBiglietto().getId());
+                statement.setInt(3, noleggio.getId());
 
                 statement.executeUpdate();
             }
@@ -109,82 +113,91 @@ public class Dao_Noleggi
         return response;
     }
 
-    public static boolean deleteNoleggi(Noleggio noleggio)
+    public boolean delete(Noleggio noleggio)
     {
         boolean response = true;
 
         connection = LinkDB.getConnection();
 
-        String sql = "DELETE FROM noleggi WHERE id=?";
+        String sql = "DELETE FROM noleggi WHERE id = ?";
 
         try
         {
-            PreparedStatement statement= connection.prepareStatement(sql);
-            statement.setInt(1,noleggio.getId());
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, noleggio.getId());
+
             statement.executeUpdate();
+
             statement.close();
             LinkDB.closeConnection();
         }
-        catch (SQLException e)
+        catch (Exception ex)
         {
             response= false;
-            e.printStackTrace();
+            ex.printStackTrace();
         }
-
 
         return response;
     }
 
-    public static Attrezzatura getAttrezzatura(Noleggio noleggio)
+    public Attrezzatura getAttrezzatura(Noleggio noleggio)
     {
         Attrezzatura response = null;
 
         connection = LinkDB.getConnection();
-        String sql= "SELECT * attrezzature WHERE id= ?";
+
+        String sql= "SELECT * FROM attrezzature WHERE id = ?";
 
         try
         {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,noleggio.getAttrezzatura().getId());
+            statement.setInt(1, noleggio.getAttrezzatura().getId());
+
             statement.execute();
 
-            ResultSet resultSet= statement.getResultSet();
+            ResultSet resultSet = statement.getResultSet();
+
             if (resultSet.next())
-                response= new Attrezzatura(resultSet.getInt(1),resultSet.getString(2));
+                response= new Attrezzatura(resultSet.getInt(1),
+                        resultSet.getString(2));
 
             resultSet.close();
             statement.close();
             LinkDB.closeConnection();
         }
-        catch (SQLException e)
+        catch (Exception ex)
         {
             response= null;
-            e.printStackTrace();
+            ex.printStackTrace();
         }
-
 
         return response;
     }
 
-    public static Biglietto getBiglietto(Noleggio noleggio)
+    public Biglietto getBiglietto(Noleggio noleggio)
     {
+        Dao_Utenti daoUtenti = new Dao_Utenti();
+        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
+        Dao_Piste daoPiste = new Dao_Piste();
         Biglietto response = null;
 
         connection = LinkDB.getConnection();
-        String sql= "SELECT * biglietti WHERE id= ?";
+
+        String sql= "SELECT * biglietti WHERE id = ?";
 
         try
         {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,noleggio.getBiglietto().getId());
+            statement.setInt(1, noleggio.getBiglietto().getId());
             statement.execute();
 
-            ResultSet resultSet= statement.getResultSet();
+            ResultSet resultSet = statement.getResultSet();
+
             if (resultSet.next())
-                response= new Biglietto(resultSet.getInt(1),
-                        Dao_Biglietti.findById(resultSet.getInt(2)),
-                        Dao_Piste.findById(resultSet.getInt(3)),
-                        resultSet.getDate(4));
+                response = new Biglietto(resultSet.getInt(1),
+                        daoUtenti.findById(resultSet.getInt(2)),
+                        daoPiste.findById(resultSet.getInt(3)),
+                        resultSet.getDate(4).toLocalDate());
 
             resultSet.close();
             statement.close();
@@ -195,7 +208,6 @@ public class Dao_Noleggi
             response= null;
             e.printStackTrace();
         }
-
 
         return response;
     }

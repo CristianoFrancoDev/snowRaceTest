@@ -6,14 +6,16 @@ import model.Utente;
 import singleton.LinkDB;
 import util.CryptoHelper;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Dao_Utenti
 {
-    private static Connection connection;
+    private Connection connection;
 
-    public static Utente findUser(String nome)
+    public Utente findById(int id)
     {
         Utente response = null;
 
@@ -21,27 +23,24 @@ public class Dao_Utenti
 
         if (connection != null)
         {
-            String sql = "SELECT * FROM utenti WHERE nome = ?";
+            String sql = "SELECT * FROM utenti WHERE id = ?";
 
             try
             {
                 PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setString(1, nome);
+                statement.setInt(1, id);
 
                 ResultSet resultSet = statement.executeQuery();
 
-                if (resultSet != null)
+                if (resultSet.next())
                 {
-                    if (resultSet.next())
-                    {
-                        response = new Utente(resultSet.getInt(1),
-                                resultSet.getString(2),
-                                resultSet.getString(3),
-                                resultSet.getString(4),
-                                Ruolo.valueOf(resultSet.getString(5)),
-                                CryptoHelper.decode(resultSet.getString(6)),
-                                resultSet.getBoolean(7));
-                    }
+                    response = new Utente(resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3),
+                            resultSet.getString(4),
+                            Ruolo.valueOf(resultSet.getString(5)),
+                            CryptoHelper.decode(resultSet.getString(6)),
+                            resultSet.getBoolean(7));
                 }
 
                 resultSet.close();
@@ -51,14 +50,93 @@ public class Dao_Utenti
             catch (Exception ex)
             {
                 response = null;
-                ex.printStackTrace();
             }
         }
 
         return response;
     }
 
-    public static boolean saveUser(Utente utente)
+    public Utente findByNomeAndPassword(String nome, String password)
+    {
+        Utente response = null;
+
+        connection = LinkDB.getConnection();
+
+        if (connection != null)
+        {
+            String sql = "SELECT * FROM utenti WHERE nome = ? AND password = ?";
+
+            try
+            {
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, nome);
+                statement.setString(2, CryptoHelper.encode(password));
+
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next())
+                {
+                    response = new Utente(resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3),
+                            resultSet.getString(4),
+                            Ruolo.valueOf(resultSet.getString(5)),
+                            CryptoHelper.decode(resultSet.getString(6)),
+                            resultSet.getBoolean(7));
+                }
+
+                resultSet.close();
+                statement.close();
+                LinkDB.closeConnection();
+            }
+            catch (Exception ex)
+            {
+                response = null;
+            }
+        }
+
+        return response;
+    }
+
+    public List<Utente> findAll()
+    {
+        List<Utente> response = new ArrayList<>();
+
+        connection = LinkDB.getConnection();
+
+        String sql = "SELECT * FROM utenti";
+
+        try
+        {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+
+            ResultSet resultSet = statement.getResultSet();
+
+            while (resultSet.next())
+            {
+                response.add(new Utente(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        Ruolo.valueOf(resultSet.getString(5).toUpperCase()),
+                        resultSet.getString(6),
+                        resultSet.getBoolean(7)));
+            }
+
+            resultSet.close();
+            statement.close();
+            LinkDB.closeConnection();
+        }
+        catch (Exception ex)
+        {
+            response = null;
+        }
+
+        return response;
+    }
+
+    public boolean save(Utente utente)
     {
         PreparedStatement statement;
         boolean response = true;
@@ -75,7 +153,8 @@ public class Dao_Utenti
                 {
                     //creazione utente
 
-                    String sql = "INSERT INTO utenti (nome, indirizzo, luogo, ruolo, password, cancellato) VALUES (?, ?, ?, ?, ?, ?)";
+                    String sql = "INSERT INTO utenti (nome, indirizzo, luogo, ruolo, password, cancellato)";
+                    sql += " VALUES (?, ?, ?, ?, ?, ?)";
 
                         statement = connection.prepareStatement(sql);
 
@@ -107,8 +186,7 @@ public class Dao_Utenti
                 {
                     //modifica utente
 
-                    String sql = "UPDATE utenti SET nome = ?, indirizzo = ?, luogo = ?, ruolo = ?, password = ?, cancellato = ? ";
-                    sql += "WHERE id = ?";
+                    String sql = "UPDATE utenti SET nome = ?, indirizzo = ?, luogo = ?, ruolo = ?, password = ?, cancellato = ? WHERE id = ?";
 
                         statement = connection.prepareStatement(sql);
 
@@ -129,14 +207,13 @@ public class Dao_Utenti
             catch (SQLException e)
             {
                 response = false;
-                e.printStackTrace();
             }
         }
 
         return response;
     }
 
-    public static boolean deleteUser(Utente utente)
+    public boolean delete(Utente utente)
     {
         boolean response = true;
 
@@ -163,16 +240,17 @@ public class Dao_Utenti
             catch (Exception ex)
             {
                 response = false;
-                ex.printStackTrace();
             }
         }
 
         return response;
     }
 
-    public static Set<Biglietto> getBiglietti(Utente utente)
+    public List<Biglietto> getBiglietti(Utente utente)
     {
-        Set<Biglietto> biglietti = null;
+        Biglietto biglietto;
+        Dao_Piste daoPiste = new Dao_Piste();
+        List<Biglietto> response = null;
 
         String sql = "SELECT * FROM biglietti WHERE id_utente = ?";
 
@@ -180,45 +258,37 @@ public class Dao_Utenti
 
         if (connection != null)
         {
+            response = new ArrayList<>();
+
             try
             {
                 PreparedStatement statement = connection.prepareStatement(sql);
-
                 statement.setInt(1, utente.getId());
 
                 statement.execute();
 
                 ResultSet resultSet = statement.getResultSet();
 
-                if (resultSet != null)
+                while (resultSet.next())
                 {
-                    Biglietto biglietto;
+                    biglietto = new Biglietto(resultSet.getInt(1),
+                            utente,
+                            daoPiste.findById(resultSet.getInt(3)),
+                            resultSet.getDate(4).toLocalDate());
 
-                    biglietti = new HashSet<>();
-
-                    while (resultSet.next())
-                    {
-//                        biglietto = new Biglietto(resultSet.getInt(1),);
-
-
-
-
-
-
-
-
-
-
-
-                    }
+                            response.add(biglietto);
                 }
+
+                resultSet.close();
+                statement.close();
+                LinkDB.closeConnection();
             }
             catch (SQLException e)
             {
-                e.printStackTrace();
+                response = null;
             }
         }
 
-        return biglietti;
+        return response;
     }
 }

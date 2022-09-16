@@ -2,19 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4dcc65e-1e9f-4872-812d-33ea95b5ddf5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/dao/Dao_Noleggi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/ImpiantoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/UtenteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/converter/AttrezzaturaConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/converter/BigliettoConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/converter/ImpiantoConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/converter/NoleggioConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/converter/PistaConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/converter/UtenteConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dao/Dao_Biglietti.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dao/Dao_Piste.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dto/AttrezzaturaDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dto/BigliettoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dto/ImpiantoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dto/NoleggioDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dto/PistaDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dto/UtenteDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/AttrezzaturaService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/ImpiantiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/PistaService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/UtentiService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/Dao_Attrezzatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Attrezzatura.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/Dao_Attrezzatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Attrezzature.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dao/Dao_Impianti.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Impianti.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/Dao_Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Utenti.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Attrezzatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Attrezzatura.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/Dao_Noleggi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Noleggi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/Dao_Utenti.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Utenti.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Biglietto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Biglietto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Impianto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Impianto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Noleggio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Noleggio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Pista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Pista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Utente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/singleton/LinkDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/singleton/LinkDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,8 +44,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -60,6 +74,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -109,7 +124,8 @@
       <workItem from="1663157625682" duration="6603000" />
       <workItem from="1663165189529" duration="5753000" />
       <workItem from="1663232800941" duration="35000" />
-      <workItem from="1663232866767" duration="11646000" />
+      <workItem from="1663232866767" duration="15436000" />
+      <workItem from="1663312989591" duration="23345000" />
     </task>
     <servers />
   </component>
@@ -121,18 +137,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1663060774405" />
-    <state x="574" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1663245183375">
+    <state x="574" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1663325541930">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1663245183375" />
+    <state x="574" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1663325541930" />
     <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1663060768779">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1663060768779" />
-    <state x="466" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1663144795866">
+    <state x="466" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1663326155337">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="466" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1663144795866" />
+    <state x="466" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1663326155337" />
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1663233426571">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -177,28 +193,27 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="252" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1663170996603" />
-    <state x="249" y="0" key="SettingsEditor" timestamp="1663167266819">
+    <state x="249" y="0" key="SettingsEditor" timestamp="1663334656937">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1663167266819" />
+    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1663334656937" />
+    <state x="425" y="66" width="670" height="676" key="search.everywhere.popup" timestamp="1663334682530">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="425" y="66" width="670" height="676" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1663334682530" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/Main.java</url>
-          <line>67</line>
+          <line>26</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/Main.java</url>
           <line>21</line>
           <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/dao/Dao_Impianti.java</url>
-          <line>162</line>
-          <option name="timeStamp" value="39" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

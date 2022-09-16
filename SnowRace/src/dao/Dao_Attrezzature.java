@@ -1,17 +1,20 @@
 package dao;
 
 import model.Attrezzatura;
+import model.Biglietto;
 import model.Noleggio;
 import singleton.LinkDB;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
-public class Dao_Attrezzatura
+public class Dao_Attrezzature
 {
-    private static Connection connection;
+    private Connection connection;
 
-    public static Attrezzatura findByIdAttrezzatura(int id)
+    public Attrezzatura findById(int id)
     {
         Attrezzatura response = null;
 
@@ -50,7 +53,41 @@ public class Dao_Attrezzatura
         return response;
     }
 
-    public static boolean saveAttrezzatura(Attrezzatura attrezzatura)
+    public List<Attrezzatura> findAll()
+    {
+        List<Attrezzatura> response = new ArrayList<>();
+
+        connection = LinkDB.getConnection();
+
+        String sql = "SELECT * FROM attrezzature";
+
+        try
+        {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+
+            ResultSet resultSet = statement.getResultSet();
+
+            while (resultSet.next())
+            {
+                response.add(new Attrezzatura(resultSet.getInt(1),
+                        resultSet.getString(2)));
+            }
+
+            resultSet.close();
+            statement.close();
+            LinkDB.closeConnection();
+        }
+        catch (SQLException e)
+        {
+            response = null;
+            e.printStackTrace();
+        }
+
+        return response;
+    }
+
+    public boolean save(Attrezzatura attrezzatura)
     {
         String sql;
         PreparedStatement statement;
@@ -94,10 +131,11 @@ public class Dao_Attrezzatura
                 {
                     //modifica attrezzatura
 
-                    sql = "UPDATE attrezzature set articolo = ?";
+                    sql = "UPDATE attrezzature SET articolo = ? WHERE id = ?";
 
                     statement = connection.prepareStatement(sql);
                     statement.setString(1, attrezzatura.getArticolo());
+                    statement.setInt(2, attrezzatura.getId());
 
                     statement.execute();
                 }
@@ -115,7 +153,7 @@ public class Dao_Attrezzatura
         return response;
     }
 
-    public static boolean deleteAttrezzatura(Attrezzatura attrezzatura)
+    public boolean delete(Attrezzatura attrezzatura)
     {
         boolean response = true;
 
@@ -143,16 +181,6 @@ public class Dao_Attrezzatura
                 e.printStackTrace();
             }
         }
-
-        return response;
-    }
-
-    public static Set<Noleggio> getNoleggi(Attrezzatura attrezzatura)
-    {
-        Set<Noleggio> response = null;
-
-        connection = LinkDB.getConnection();
-
 
         return response;
     }
