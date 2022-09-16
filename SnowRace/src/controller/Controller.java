@@ -1,6 +1,6 @@
 package controller;
 
-import dao.Dao_Users;
+import dao.Dao_Utenti;
 import model.Utente;
 import java.sql.*;
 
@@ -24,7 +24,7 @@ public class Controller
 
     public boolean userExists(String nome)
     {
-        return Dao_Users.findUser(nome) != null;
+        return Dao_Utenti.findUser(nome) != null;
     }
 
     public boolean createUser(Utente utente)
@@ -60,14 +60,14 @@ public class Controller
 
     public boolean checkUserIsActive(String nome)
     {
-        Utente utente = Dao_Users.findUser(nome);
+        Utente utente = Dao_Utenti.findUser(nome);
 
         return !utente.isCancellato();
     }
 
     public boolean checkPassword(String nome, String passwordDecrypted)
     {
-        Utente utente = Dao_Users.findUser(nome);
+        Utente utente = Dao_Utenti.findUser(nome);
 
         return passwordDecrypted.equals(utente.getPassword());
     }

@@ -10,9 +10,8 @@ public class LinkDB
     private static final String driver = "com.mysql.cj.jdbc.Driver";
     private static final String urlDB = "jdbc:mysql://localhost:3306/snowrace";
     private static Connection connection = null;
-    private static LinkDB instance = null;
 
-    private LinkDB()
+    static
     {
         try
         {
@@ -24,24 +23,7 @@ public class LinkDB
         }
     }
 
-    public static LinkDB getInstance()
-    {
-        if (instance == null)
-        {
-            try
-            {
-                instance = new LinkDB();
-            }
-            catch (Exception ex)
-            {
-                ex.printStackTrace();
-            }
-        }
-
-        return instance;
-    }
-
-    public Connection getConnection()
+    public static Connection getConnection()
     {
         Connection response = null;
 
@@ -60,8 +42,10 @@ public class LinkDB
         return response;
     }
 
-    public void closeConnection()
+    public static boolean closeConnection()
     {
+        boolean response = true;
+
         try
         {
             if (connection != null && !connection.isClosed())
@@ -69,7 +53,10 @@ public class LinkDB
         }
         catch (Exception ex)
         {
+            response = false;
             ex.printStackTrace();
         }
+
+        return response;
     }
 }

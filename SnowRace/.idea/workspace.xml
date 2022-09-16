@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4dcc65e-1e9f-4872-812d-33ea95b5ddf5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/dao/Dao_Biglietti.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/Dao_Piste.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Biglietto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Biglietto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Impianto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Impianto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Pista.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Pista.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/singleton/LinkDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/singleton/LinkDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/test/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/test/main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Biglietto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Biglietto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Impianto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Impianto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Pista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Pista.java" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/src/singleton/LinkDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/singleton/LinkDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Main.java" afterDir="false" />
     </list>
@@ -31,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -52,14 +42,7 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "last_opened_file_path": "C:/Users/franc/OneDrive/Desktop/jar_files/mysql-connector-java-8.0.28.jar",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.27931035"
-  }
-}]]></component>
+
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Lavori_Java\IntelliJ\SnowRace\src\test" />
@@ -108,55 +91,33 @@
       <workItem from="1663140685762" duration="12595000" />
       <workItem from="1663157625682" duration="6603000" />
       <workItem from="1663165189529" duration="5753000" />
+      <workItem from="1663232800941" duration="35000" />
+      <workItem from="1663232866767" duration="11646000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
+
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/Main.java</url>
-          <line>93</line>
+
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/Main.java</url>
-          <line>47</line>
+
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/dao/Dao_Impianti.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/dao/Dao_Impianti.java</url>
-          <line>98</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/dao/Dao_Impianti.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/dao/Dao_Impianti.java</url>
-          <line>102</line>
-          <option name="timeStamp" value="38" />
+          <line>162</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

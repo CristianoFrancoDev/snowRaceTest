@@ -1,27 +1,24 @@
 package test;
 
 import controller.Controller;
+
 import dao.Dao_Biglietti;
 import dao.Dao_Piste;
 import dao.Dao_Users;
 import model.Impianto;
 import model.Pista;
+
 import model.Utente;
-import singleton.LinkDB;
 import view.Menu;
 
 import java.time.LocalDate;
 
 public class Main
 {
-    public static LinkDB linkDB;
-
     public static void main(String[] args)
     {
         String nome;
 
-        //istanziazione classe singleton
-        linkDB = LinkDB.getInstance();
 
 //        Utente temp = new Utente(5,"Aldo2", null, "Bn", Ruolo.USER, "12345678", false);
         Impianto impianto = new Impianto(1,"matese", "neve", "yyay", 10.0);

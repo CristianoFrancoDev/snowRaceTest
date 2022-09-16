@@ -9,8 +9,10 @@ public class Pista
     public Pista(int id, String titolo, Impianto impianto)
     {
         this.id = id;
+
         this.impianto = impianto;
         this.titolo = titolo;
+
     }
 
     public Pista(String titolo, Impianto impianto)
@@ -19,16 +21,24 @@ public class Pista
         this.titolo = titolo;
     }
 
-    public int getId(){
+
+    public int getId()
+    {
         return id;
     }
-    public String getTitolo() {
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
+    public String getTitolo()
+    {
         return titolo;
     }
 
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
+    public void setTitolo(String titolo)
+    {
 
     public Impianto getImpianto() {
         return impianto;
@@ -39,9 +49,28 @@ public class Pista
     }
 
     @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pista pista = (Pista) o;
+
+        return getId() == pista.getId();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return getId();
+    }
+
+    @Override
     public String toString() {
         return "Piste{" +
-                "titolo=" + titolo +
+                "id=" + id + 
+                " ,titolo=" + titolo +
+
                 ", impianto=" + impianto +
                 '}';
     }
