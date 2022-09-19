@@ -3,13 +3,18 @@ package dao;
 import model.Biglietto;
 import model.Utente;
 import singleton.LinkDB;
+import test.Main;
+
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Dao_Biglietti
 {
-    private Connection connection;
+    private static final String QUERY_DATA = "SELECT * FROM biglietti WHERE id_utente = ? AND DATE(data) BETWEEN ? AND ?";
+
+    private static Connection connection;
 
     public Biglietto findById(int id)
     {
@@ -44,10 +49,8 @@ public class Dao_Biglietti
         catch (Exception ex)
         {
             response = null;
-            throw new RuntimeException(ex);
+            ex.printStackTrace();
         }
-
-        System.out.println(response.toString());
 
         return response;
     }
@@ -148,11 +151,11 @@ public class Dao_Biglietti
         return response;
     }
 
-    public List<Biglietto> findByUser(Utente utente)
+    public ArrayList<Biglietto> findByUser(Utente utente)
     {
         Dao_Utenti daoUtenti = new Dao_Utenti();
         Dao_Piste daoPiste = new Dao_Piste();
-        List<Biglietto> response = new ArrayList<>();
+        ArrayList<Biglietto> response = new ArrayList<Biglietto>();
 
         String sql = "SELECT * FROM biglietti WHERE id_utente = ?";
 
@@ -161,8 +164,7 @@ public class Dao_Biglietti
         try
         {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,utente.getId());
-
+            preparedStatement.setInt(1, utente.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next())
@@ -176,8 +178,8 @@ public class Dao_Biglietti
             resultSet.close();
             preparedStatement.close();
             LinkDB.closeConnection();
-
         }
+
         catch (Exception ex)
         {
             response = null;
@@ -186,4 +188,44 @@ public class Dao_Biglietti
 
         return response;
     }
+
+    public ArrayList<Biglietto> filterBigliettiByData(Utente utente, LocalDate date1, LocalDate date2)
+    {
+
+        Dao_Utenti daoUtenti = new Dao_Utenti();
+        Dao_Piste daoPiste = new Dao_Piste();
+        boolean response = true;
+        ArrayList<Biglietto> listaBiglietti = new ArrayList<>();
+
+        connection =  LinkDB.getConnection();
+
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_DATA);
+            preparedStatement.setInt(1,utente.getId());
+            preparedStatement.setDate(2, Date.valueOf(date1));
+            preparedStatement.setDate(3, Date.valueOf(date2));
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next())
+            {
+                Biglietto biglietto = new Biglietto(
+                        resultSet.getInt("id"),
+                        daoUtenti.findUser(utente.getNome()),
+                        daoPiste.findById(resultSet.getInt("id_pista")),
+                        resultSet.getDate(4).toLocalDate());
+                listaBiglietti.add(biglietto);
+            }
+
+            preparedStatement.close();
+            LinkDB.closeConnection();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return listaBiglietti;
+    }
+
+
 }

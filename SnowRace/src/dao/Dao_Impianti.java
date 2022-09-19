@@ -235,6 +235,6 @@ public class Dao_Impianti
             }
         }
 
-        return  response;
+        return response;
     }
 }

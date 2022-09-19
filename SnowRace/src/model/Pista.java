@@ -1,11 +1,42 @@
 package model;
 
+/**
+ * Classe Pista: definisce la pista legata ad un impianto sciistico
+ */
 public class Pista
 {
+    /**
+     * Variabili di istanza
+     */
     private int id;
     private String titolo;
     private Impianto impianto;
 
+    /**
+     * Costruttore vuoto
+     */
+    public Pista(){
+
+    }
+    /**
+     * Costruttore con parametro id
+     */
+    public Pista(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Costruttore con 2 parametri
+     */
+    public Pista(String titolo, Impianto impianto)
+    {
+        this.impianto = impianto;
+        this.titolo = titolo;
+    }
+
+    /**
+     * Costruttore con 3 parametri
+     */
     public Pista(int id, String titolo, Impianto impianto)
     {
         this.id = id;
@@ -13,12 +44,9 @@ public class Pista
         this.impianto = impianto;
     }
 
-    public Pista(String titolo, Impianto impianto)
-    {
-        this.impianto = impianto;
-        this.titolo = titolo;
-    }
-
+    /**
+     * Metodi getter e setter
+     */
     public int getId()
     {
         return id;
@@ -47,6 +75,9 @@ public class Pista
         this.impianto = impianto;
     }
 
+    /**
+     * Metodo equals
+     */
     @Override
     public boolean equals(Object o)
     {
@@ -58,17 +89,14 @@ public class Pista
         return getId() == pista.getId();
     }
 
-    @Override
-    public int hashCode()
-    {
-        return getId();
-    }
-
+    /**
+     * Metodo toString
+     */
     @Override
     public String toString() {
         return "Piste{" +
                 "numero=" + titolo +
                 ", impianto=" + impianto +
-                '}';
+                '}'+"\n";
     }
 }

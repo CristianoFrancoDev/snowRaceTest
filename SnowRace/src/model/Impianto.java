@@ -1,13 +1,46 @@
 package model;
 
+/**
+ * Classe Impianto: definisce un impianto sciistico
+ */
 public class Impianto
 {
+    /**
+     * Variabili di istanza
+     */
     private int id;
     private String titolo;
     private String descrizione;
     private String foto;
     private double prezzo;
 
+    /**
+     * Costruttore vuoto
+     */
+    public Impianto(){
+    }
+
+    /**
+     * Costruttore con parametro id
+     */
+    public Impianto(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Costruttore con 4 parametri
+     */
+    public Impianto(String titolo, String descrizione, String foto, double prezzo)
+    {
+        this.titolo = titolo;
+        this.descrizione = descrizione;
+        this.foto = foto;
+        this.prezzo = prezzo;
+    }
+
+    /**
+     * Costruttore con 5 parametri
+     */
     public Impianto(int id, String titolo, String descrizione, String foto, double prezzo)
     {
         this.id = id;
@@ -17,14 +50,9 @@ public class Impianto
         this.prezzo = prezzo;
     }
 
-    public Impianto(String titolo, String descrizione, String foto, double prezzo)
-    {
-        this.titolo = titolo;
-        this.descrizione = descrizione;
-        this.foto = foto;
-        this.prezzo = prezzo;
-    }
-
+    /**
+     * Metodi gettere e setter
+     */
     public int getId()
     {
         return id;
@@ -67,6 +95,9 @@ public class Impianto
         this.prezzo = prezzo;
     }
 
+    /**
+     * Metodo equals
+     */
     @Override
     public boolean equals(Object o)
     {
@@ -78,12 +109,9 @@ public class Impianto
         return getId() == impianto.getId();
     }
 
-    @Override
-    public int hashCode()
-    {
-        return getId();
-    }
-
+    /**
+     * Metodo toString
+     */
     @Override
     public String toString() {
         return "Impianti{" +

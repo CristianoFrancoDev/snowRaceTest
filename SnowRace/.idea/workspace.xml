@@ -2,33 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4dcc65e-1e9f-4872-812d-33ea95b5ddf5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controller/ImpiantoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/UtenteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/converter/AttrezzaturaConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/converter/BigliettoConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/converter/ImpiantoConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/converter/NoleggioConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/converter/PistaConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/converter/UtenteConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/Dao_Biglietti.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dao/Dao_Piste.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dto/AttrezzaturaDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dto/BigliettoDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dto/ImpiantoDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dto/NoleggioDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dto/PistaDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dto/UtenteDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/service/AttrezzaturaService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/service/ImpiantiService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/service/PistaService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/service/UtentiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_30.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dao/Dao_Attrezzatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Attrezzature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnowRace.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SnowRace.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/controller/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Attrezzatura.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Impianti.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Impianti.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Users.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Attrezzatura.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Attrezzatura.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Biglietto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Biglietto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Impianto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Impianto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Noleggio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Noleggio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Pista.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Pista.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Ruolo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Ruolo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Utente.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Utente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/singleton/LinkDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/singleton/LinkDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/test/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/test/main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/Dao_Biglietti.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Biglietti.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dao/Dao_Impianti.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Impianti.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dao/Dao_Noleggi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Noleggi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dao/Dao_Utenti.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Utenti.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Attrezzatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Attrezzatura.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Biglietto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Biglietto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Impianto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Impianto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Noleggio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Noleggio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Pista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Pista.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Ruolo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Ruolo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Utente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/singleton/LinkDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/singleton/LinkDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,27 +57,30 @@
   <component name="KonanWorkspace">
     <executables />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2EhuNRDxiclPGgEB8ZJc7Tacyl6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/igori/Documents/mysql-connector-java-8.0.30.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.41379312&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Java&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Lavori_Java\IntelliJ\SnowRace\src\test" />
@@ -109,6 +114,7 @@
       </list>
     </option>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -132,90 +138,15 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1663060774405">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1663060774405" />
-    <state x="574" y="113" key="#com.intellij.ide.util.MemberChooser" timestamp="1663325541930">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="574" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1663325541930" />
-    <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1663060768779">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="498" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1663060768779" />
-    <state x="466" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1663326155337">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="466" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1663326155337" />
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1663233426571">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1663233426571" />
-    <state x="1068" y="166" key="#xdebugger.evaluate" timestamp="1663149130232">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="1068" y="166" key="#xdebugger.evaluate/0.0.1536.824@0.0.1536.824" timestamp="1663149130232" />
-    <state x="473" y="153" key="FileChooserDialogImpl" timestamp="1663165248480">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="473" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1663165248480" />
-    <state width="1493" height="252" key="GridCell.Tab.0.bottom" timestamp="1663170996603">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="252" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1663170996603" />
-    <state width="1493" height="252" key="GridCell.Tab.0.center" timestamp="1663170996602">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="252" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1663170996602" />
-    <state width="1493" height="252" key="GridCell.Tab.0.left" timestamp="1663170996602">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="252" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1663170996602" />
-    <state width="1493" height="252" key="GridCell.Tab.0.right" timestamp="1663170996602">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="252" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1663170996602" />
-    <state width="1493" height="252" key="GridCell.Tab.1.bottom" timestamp="1663170996603">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="252" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1663170996603" />
-    <state width="1493" height="252" key="GridCell.Tab.1.center" timestamp="1663170996603">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="252" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1663170996603" />
-    <state width="1493" height="252" key="GridCell.Tab.1.left" timestamp="1663170996603">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="252" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1663170996603" />
-    <state width="1493" height="252" key="GridCell.Tab.1.right" timestamp="1663170996603">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1493" height="252" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1663170996603" />
-    <state x="249" y="0" key="SettingsEditor" timestamp="1663334656937">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1663334656937" />
-    <state x="425" y="66" width="670" height="676" key="search.everywhere.popup" timestamp="1663334682530">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="425" y="66" width="670" height="676" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1663334682530" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/Main.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/Main.java</url>
-          <line>21</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

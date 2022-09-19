@@ -1,11 +1,42 @@
 package model;
 
+/**
+ * Classe Noleggio: definisce un noleggio di un'attrezzatura
+ */
 public class Noleggio
 {
+    /**
+     * Variabili di istanza
+     */
     private int id;
     private Attrezzatura attrezzatura;
     private Biglietto biglietto;
 
+    /**
+     * Costruttore vuoto
+     */
+    public Noleggio() {
+    }
+
+    /**
+     * Costruttore con parametro id
+     */
+    public Noleggio(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Costruttore con 2 parametri
+     */
+    public Noleggio(Attrezzatura attrezzatura, Biglietto biglietto)
+    {
+        this.attrezzatura = attrezzatura;
+        this.biglietto = biglietto;
+    }
+
+    /**
+     * Costruttore con 3 parametri
+     */
     public Noleggio(int id, Attrezzatura attrezzatura, Biglietto biglietto)
     {
         this.id = id;
@@ -13,12 +44,9 @@ public class Noleggio
         this.biglietto = biglietto;
     }
 
-    public Noleggio(Attrezzatura attrezzatura, Biglietto biglietto)
-    {
-        this.attrezzatura = attrezzatura;
-        this.biglietto = biglietto;
-    }
-
+    /**
+     * Metodi getter e setter
+     */
     public int getId()
     {
         return id;
@@ -45,6 +73,9 @@ public class Noleggio
         this.biglietto = biglietto;
     }
 
+    /**
+     * Metodo equals
+     */
     @Override
     public boolean equals(Object o)
     {
@@ -56,9 +87,15 @@ public class Noleggio
         return getId() == noleggio.getId();
     }
 
+    /**
+     * Metodo toString
+     */
     @Override
-    public int hashCode()
-    {
-        return getId();
+    public String toString() {
+        return "Noleggio{" +
+                "id=" + id +
+                ", attrezzatura=" + attrezzatura +
+                ", biglietto=" + biglietto +
+                '}';
     }
 }

@@ -56,6 +56,52 @@ public class Dao_Utenti
         return response;
     }
 
+    public Utente findUser(String nome)
+    {
+        Utente response = null;
+
+        connection = LinkDB.getConnection();
+
+        if (connection != null)
+        {
+            String sql = "SELECT * FROM utenti WHERE nome = ?";
+
+            try
+            {
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, nome);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet != null)
+                {
+                    if (resultSet.next())
+                    {
+                        response = new Utente(resultSet.getInt(1),
+                                resultSet.getString(2),
+                                resultSet.getString(3),
+                                resultSet.getString(4),
+                                Ruolo.valueOf(resultSet.getString(5)),
+                                CryptoHelper.decode(resultSet.getString(6)),
+                                resultSet.getBoolean(7));
+                    }
+                }
+
+                resultSet.close();
+                statement.close();
+                LinkDB.closeConnection();
+            }
+            catch (Exception ex)
+            {
+                response = null;
+                ex.printStackTrace();
+            }
+        }
+
+        return response;
+    }
+
+
     public Utente findByNomeAndPassword(String nome, String password)
     {
         Utente response = null;

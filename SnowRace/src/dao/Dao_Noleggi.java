@@ -3,10 +3,12 @@ package dao;
 import model.Attrezzatura;
 import model.Biglietto;
 import model.Noleggio;
+import model.Utente;
 import singleton.LinkDB;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Dao_Noleggi
 {
@@ -211,4 +213,43 @@ public class Dao_Noleggi
 
         return response;
     }
+
+    public ArrayList<Noleggio> findByIdBiglietto(Biglietto biglietto)
+    {
+        Dao_Attrezzature daoAttrezzature = new Dao_Attrezzature();
+        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
+        ArrayList<Noleggio> response = new ArrayList<Noleggio>();
+
+        String sql = "SELECT * FROM noleggi WHERE id_biglietto = ?";
+
+        connection =  LinkDB.getConnection();
+
+        try
+        {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, biglietto.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next())
+            {
+                Noleggio noleggio = new Noleggio(resultSet.getInt(1),
+                        daoAttrezzature.findById(resultSet.getInt(2)),
+                        daoBiglietti.findById(resultSet.getInt(3)));
+                response.add(noleggio);
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+            LinkDB.closeConnection();
+        }
+
+        catch (Exception ex)
+        {
+            response = null;
+            ex.printStackTrace();
+        }
+
+        return response;
+    }
+
 }

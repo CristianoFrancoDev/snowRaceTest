@@ -1,20 +1,49 @@
 package model;
 
+/**
+ * Classe Attrezzatura: definisce l'attrezzatura che l'utente può noleggiare
+ */
 public class Attrezzatura
 {
+    /**
+     * Variabili di istanza
+     */
     private int id;
     private String articolo;
 
+    /**
+     * Costruttore vuoto
+     */
+    public Attrezzatura() {
+    }
+
+    /**
+     * Costruttore con parametro id
+     */
+    public Attrezzatura(int id)
+    {
+        this.id = id;
+    }
+
+    /**
+     * Costruttore con un solo parametro
+     */
+    public Attrezzatura(String articolo) {
+        this.articolo = articolo;
+    }
+
+    /**
+     * Costruttore con un due parametri
+     */
     public Attrezzatura(int id, String articolo)
     {
         this.id = id;
         this.articolo = articolo;
     }
 
-    public Attrezzatura(String articolo) {
-        this.articolo = articolo;
-    }
-
+    /**
+     * Metodi getter e setter
+     */
     public int getId()
     {
         return id;
@@ -33,6 +62,10 @@ public class Attrezzatura
         this.articolo = articolo;
     }
 
+
+    /**
+     * Metodo equals
+     */
     @Override
     public boolean equals(Object o)
     {
@@ -44,9 +77,14 @@ public class Attrezzatura
         return getId() == that.getId();
     }
 
+    /**
+     * Metodo toString
+     */
     @Override
-    public int hashCode()
-    {
-        return getId();
+    public String toString() {
+        return "Attrezzatura{" +
+                "id=" + id +
+                ", articolo='" + articolo + '\'' +
+                '}';
     }
 }

@@ -1,30 +1,30 @@
 package test;
 
-import controller.UtenteController;
-import dao.Dao_Impianti;
-import model.Impianto;
-import model.Utente;
+import dao.*;
+import model.*;
 import view.Menu;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        String nome;
+        Scanner scanner = new Scanner(System.in);
+        Impianto impianto = new Impianto(1, "Impianto1", "neve", "foto1", 100);
+        Pista pista = new Pista(4,"PistaBianca", impianto);
+        Utente utente = new Utente(8,"igor", "via2", "bn", Ruolo.USER, "password123", false);
 
-        //////////////////////////////////////
-//        Utente temp = new Utente(5,"Aldo2", null, "Bn", Ruolo.USER, "12345678", false);
-//        Dao_Users.deleteUser(temp);
-//        Impianto impianto = new Impianto(1,"matese", "neve", "yyy", 10.0);
-//        Dao_Impianti.save(impianto);
-        /////////////////////////////////////
+        LocalDate localDate1 = LocalDate.of(2022, 12, 10);
+        LocalDate localDate2 = LocalDate.of(2023, 01, 23);
 
-        Menu menu = new Menu();
-
-        nome = menu.execLogin();
-
-
-
+        //Biglietto biglietto = new Biglietto(utente, pista, localDate);
+        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
+        System.out.println(daoBiglietti.filterBigliettiByData(utente, localDate1,localDate2));
 
     }
 }
