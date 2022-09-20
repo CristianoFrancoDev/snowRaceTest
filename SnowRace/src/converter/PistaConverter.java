@@ -1,39 +1,53 @@
 package converter;
 
 import dto.PistaDTO;
+import interfaces.Converter;
 import model.Pista;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class PistaConverter
+public class PistaConverter implements Converter<Pista, PistaDTO>
 {
-    public PistaDTO pistaToDto(Pista pista)
+    private static PistaConverter instance;
+
+    private PistaConverter()
+    {}
+
+    public static PistaConverter getInstance()
     {
-        ImpiantoConverter impiantoConverter = new ImpiantoConverter();
+        if (instance == null)
+            instance = new PistaConverter();
+
+        return instance;
+    }
+
+    public PistaDTO toDTO(Pista pista)
+    {
+        ImpiantoConverter impiantoConverter = ImpiantoConverter.getInstance();
 
         return  new PistaDTO(pista.getId(),
                 pista.getTitolo(),
-                impiantoConverter.impiantoToDto(pista.getImpianto()));
+                impiantoConverter.toDTO(pista.getImpianto()));
     }
 
-    public Pista DTOtoPista(PistaDTO pistaDTO)
+    public Pista toEntity(PistaDTO pistaDTO)
     {
-        ImpiantoConverter impiantoConverter = new ImpiantoConverter();
+        ImpiantoConverter impiantoConverter = ImpiantoConverter.getInstance();
 
         return new Pista(pistaDTO.getId(),
                 pistaDTO.getTitolo(),
-                impiantoConverter.DTOtoImpianto(pistaDTO.getImpianto()));
+                impiantoConverter.toEntity(pistaDTO.getImpianto()));
     }
 
-    public List<PistaDTO> pistaToDto(Collection<Pista> piste)
+    public List<PistaDTO> toDTO(Collection<Pista> piste)
     {
         List<PistaDTO> response = new ArrayList<>();
 
         for (Pista pista : piste)
         {
-            response.add(pistaToDto(pista));
+            response.add(toDTO(pista));
         }
 
         return response;

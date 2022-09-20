@@ -1,41 +1,54 @@
 package converter;
 
 import dto.NoleggioDTO;
+import interfaces.Converter;
 import model.Noleggio;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class NoleggioConverter
+public class NoleggioConverter implements Converter<Noleggio, NoleggioDTO>
 {
-    public NoleggioDTO noleggioToDTO(Noleggio noleggio)
+    private static NoleggioConverter instance;
+
+    private NoleggioConverter()
+    {}
+
+    public static NoleggioConverter getInstance()
     {
-        AttrezzaturaConverter attrezzaturaConverter = new AttrezzaturaConverter();
-        BigliettoConverter bigliettoConverter = new BigliettoConverter();
+        if (instance == null)
+            instance = new NoleggioConverter();
+
+        return instance;
+    }
+    public NoleggioDTO toDTO(Noleggio noleggio)
+    {
+        AttrezzaturaConverter attrezzaturaConverter = AttrezzaturaConverter.getInstance();
+        BigliettoConverter bigliettoConverter = BigliettoConverter.getInstance();
 
         return new NoleggioDTO(noleggio.getId(),
-                attrezzaturaConverter.attrezzaturaToDTO(noleggio.getAttrezzatura()),
-                bigliettoConverter.bigliettoToDTO(noleggio.getBiglietto()));
+                attrezzaturaConverter.toDTO(noleggio.getAttrezzatura()),
+                bigliettoConverter.toDTO(noleggio.getBiglietto()));
     }
 
-    public Noleggio DTOtoNoleggio(NoleggioDTO noleggioDTO)
+    public Noleggio toEntity(NoleggioDTO noleggioDTO)
     {
-        AttrezzaturaConverter attrezzaturaConverter = new AttrezzaturaConverter();
-        BigliettoConverter bigliettoConverter = new BigliettoConverter();
+        AttrezzaturaConverter attrezzaturaConverter = AttrezzaturaConverter.getInstance();
+        BigliettoConverter bigliettoConverter = BigliettoConverter.getInstance();
 
         return new Noleggio(noleggioDTO.getId(),
-                attrezzaturaConverter.DTOtoAttrezzatura(noleggioDTO.getAttrezzatura()),
-                bigliettoConverter.DTOtoBiglietto(noleggioDTO.getBiglietto()));
+                attrezzaturaConverter.toEntity(noleggioDTO.getAttrezzatura()),
+                bigliettoConverter.toEntity(noleggioDTO.getBiglietto()));
     }
 
-    public List<NoleggioDTO> noleggioToDTO(Collection<Noleggio> noleggi)
+    public List<NoleggioDTO> toDTO(Collection<Noleggio> noleggi)
     {
         List<NoleggioDTO> response = new ArrayList<>();
 
         for (Noleggio noleggio : noleggi)
         {
-            response.add(noleggioToDTO(noleggio));
+            response.add(toDTO(noleggio));
         }
 
         return response;

@@ -1,43 +1,57 @@
 package converter;
 
 import dto.BigliettoDTO;
+import interfaces.Converter;
 import model.Biglietto;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class BigliettoConverter
+public class BigliettoConverter implements Converter<Biglietto, BigliettoDTO>
 {
-    public BigliettoDTO bigliettoToDTO(Biglietto biglietto)
+    private static BigliettoConverter instance;
+
+    private BigliettoConverter()
+    {}
+
+    public static BigliettoConverter getInstance()
     {
-        UtenteConverter utenteConverter = new UtenteConverter();
-        PistaConverter pistaConverter = new PistaConverter();
+        if (instance == null)
+            instance = new BigliettoConverter();
+
+        return instance;
+    }
+
+    public BigliettoDTO toDTO(Biglietto biglietto)
+    {
+        UtenteConverter utenteConverter = UtenteConverter.getInstance();
+        PistaConverter pistaConverter = PistaConverter.getInstance();
 
         return new BigliettoDTO(biglietto.getId(),
-                utenteConverter.utenteToDto(biglietto.getUtente()),
-                pistaConverter.pistaToDto(biglietto.getPista()),
+                utenteConverter.toDTO(biglietto.getUtente()),
+                pistaConverter.toDTO(biglietto.getPista()),
                 biglietto.getData());
     }
 
-    public Biglietto DTOtoBiglietto(BigliettoDTO bigliettoDTO)
+    public Biglietto toEntity(BigliettoDTO bigliettoDTO)
     {
-        UtenteConverter utenteConverter = new UtenteConverter();
-        PistaConverter pistaConverter = new PistaConverter();
+        UtenteConverter utenteConverter = UtenteConverter.getInstance();
+        PistaConverter pistaConverter = PistaConverter.getInstance();
 
         return new Biglietto(bigliettoDTO.getId(),
-                utenteConverter.DTOtoUtente(bigliettoDTO.getUtente()),
-                pistaConverter.DTOtoPista(bigliettoDTO.getPista()),
+                utenteConverter.toEntity(bigliettoDTO.getUtente()),
+                pistaConverter.toEntity(bigliettoDTO.getPista()),
                 bigliettoDTO.getData());
     }
 
-    public List<BigliettoDTO> bigliettoToDTO(Collection<Biglietto> biglietti)
+    public List<BigliettoDTO> toDTO(Collection<Biglietto> biglietti)
     {
         List<BigliettoDTO> response = new ArrayList<>();
 
         for (Biglietto biglietto : biglietti)
         {
-            response.add(bigliettoToDTO(biglietto));
+            response.add(toDTO(biglietto));
         }
 
         return response;

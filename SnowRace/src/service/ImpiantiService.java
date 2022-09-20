@@ -19,13 +19,13 @@ public class ImpiantiService
     public ImpiantiService()
     {
         daoImpianti = new Dao_Impianti();
-        impiantoConverter = new ImpiantoConverter();
+        impiantoConverter = ImpiantoConverter.getInstance();
     }
 
     public boolean insert(ImpiantoDTO impiantoDTO)
     {
         boolean response = false;
-        Impianto impianto = impiantoConverter.DTOtoImpianto(impiantoDTO);
+        Impianto impianto = impiantoConverter.toEntity(impiantoDTO);
 
         if (daoImpianti.save(impianto))
         {
@@ -38,12 +38,12 @@ public class ImpiantiService
 
     public boolean update(ImpiantoDTO impiantoDTO)
     {
-        return daoImpianti.save(impiantoConverter.DTOtoImpianto(impiantoDTO));
+        return daoImpianti.save(impiantoConverter.toEntity(impiantoDTO));
     }
 
     public boolean delete(ImpiantoDTO impiantoDTO)
     {
-        return daoImpianti.delete(impiantoConverter.DTOtoImpianto(impiantoDTO));
+        return daoImpianti.delete(impiantoConverter.toEntity(impiantoDTO));
     }
 
     public ImpiantoDTO read(int id)
@@ -53,7 +53,7 @@ public class ImpiantiService
         if (impianto == null)
             return null;
         else
-            return impiantoConverter.impiantoToDto(impianto);
+            return impiantoConverter.toDTO(impianto);
     }
 
     public List<ImpiantoDTO> getAll()
@@ -63,16 +63,16 @@ public class ImpiantiService
         if (impianti == null)
             return null;
         else
-            return impiantoConverter.impiantoToDto(impianti);
+            return impiantoConverter.toDTO(impianti);
     }
 
     public List<PistaDTO> getPiste(ImpiantoDTO impiantoDTO)
     {
-        List<Pista> piste = daoImpianti.getPiste(impiantoConverter.DTOtoImpianto(impiantoDTO));
+        List<Pista> piste = daoImpianti.getPiste(impiantoConverter.toEntity(impiantoDTO));
 
         if (piste == null)
             return null;
         else
-            return pistaConverter.pistaToDto(piste);
+            return pistaConverter.toDTO(piste);
     }
 }

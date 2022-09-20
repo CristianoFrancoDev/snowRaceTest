@@ -1,14 +1,28 @@
 package converter;
 
 import dto.UtenteDTO;
+import interfaces.Converter;
 import model.Utente;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UtenteConverter
+public class UtenteConverter implements Converter<Utente, UtenteDTO>
 {
-    public UtenteDTO utenteToDto(Utente utente)
+    private static UtenteConverter instance;
+
+    private UtenteConverter()
+    {}
+
+    public static UtenteConverter getInstance()
+    {
+        if (instance == null)
+            instance = new UtenteConverter();
+
+        return instance;
+    }
+
+    public UtenteDTO toDTO(Utente utente)
     {
         return new UtenteDTO(utente.getId(),
                 utente.getNome(),
@@ -18,7 +32,8 @@ public class UtenteConverter
                 utente.isCancellato());
     }
 
-    public Utente DTOtoUtente(UtenteDTO utenteDTO)
+    @Override
+    public Utente toEntity(UtenteDTO utenteDTO)
     {
         return new Utente(utenteDTO.getId(),
                 utenteDTO.getNome(),
@@ -29,13 +44,13 @@ public class UtenteConverter
                 utenteDTO.isCancellato());
     }
 
-    public List<UtenteDTO> utenteToDto(Collection<Utente> utenti)
+    public List<UtenteDTO> toDTO(Collection<Utente> utenti)
     {
         List<UtenteDTO> response = new ArrayList<>();
 
         for (Utente utente : utenti)
         {
-            response.add(utenteToDto(utente));
+            response.add(toDTO(utente));
         }
 
         return response;

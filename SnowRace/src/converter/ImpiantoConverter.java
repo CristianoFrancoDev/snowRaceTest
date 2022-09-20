@@ -1,15 +1,29 @@
 package converter;
 
 import dto.ImpiantoDTO;
+import interfaces.Converter;
 import model.Impianto;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ImpiantoConverter
+public class ImpiantoConverter implements Converter<Impianto, ImpiantoDTO>
 {
-    public ImpiantoDTO impiantoToDto(Impianto impianto)
+    private static ImpiantoConverter instance;
+
+    private ImpiantoConverter()
+    {}
+
+    public static ImpiantoConverter getInstance()
+    {
+        if (instance == null)
+            instance = new ImpiantoConverter();
+
+        return instance;
+    }
+
+    public ImpiantoDTO toDTO(Impianto impianto)
     {
         return new ImpiantoDTO(impianto.getId(),
                 impianto.getTitolo(),
@@ -18,7 +32,7 @@ public class ImpiantoConverter
                 impianto.getPrezzo());
     }
 
-    public Impianto DTOtoImpianto(ImpiantoDTO impiantoDTO)
+    public Impianto toEntity(ImpiantoDTO impiantoDTO)
     {
         return new Impianto(impiantoDTO.getId(),
                 impiantoDTO.getTitolo(),
@@ -27,13 +41,13 @@ public class ImpiantoConverter
                 impiantoDTO.getPrezzo());
     }
 
-    public List<ImpiantoDTO> impiantoToDto(Collection<Impianto> impianti)
+    public List<ImpiantoDTO> toDTO(Collection<Impianto> impianti)
     {
         List<ImpiantoDTO> response = new ArrayList<>();
 
         for (Impianto impianto : impianti)
         {
-            response.add(impiantoToDto(impianto));
+            response.add(toDTO(impianto));
         }
 
         return response;

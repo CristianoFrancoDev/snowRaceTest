@@ -28,9 +28,10 @@ public class Dao_Utenti
     /**
      * Costruttore vuoto
      */
-    public Dao_Utenti(){
-
+    public Dao_Utenti()
+    {
     }
+
     public Utente findById(int id)
     {
         Utente response = null;
@@ -135,7 +136,7 @@ public class Dao_Utenti
                             resultSet.getString(2),
                             resultSet.getString(3),
                             resultSet.getString(4),
-                            Ruolo.valueOf(resultSet.getString(5)),
+                            Ruolo.valueOf(resultSet.getString(5).toUpperCase()),
                             CryptoHelper.decode(resultSet.getString(6)),
                             resultSet.getBoolean(7));
                 }
@@ -209,7 +210,7 @@ public class Dao_Utenti
                     statement.setString(1, utente.getNome());
                     statement.setString(2, utente.getIndirizzo());
                     statement.setString(3, utente.getLuogo());
-                    statement.setString(4, utente.getRuolo().name());
+                    statement.setString(4, utente.getRuolo().name().toLowerCase());
                     statement.setString(5, CryptoHelper.encode(utente.getPassword()));
                     statement.setBoolean(6, utente.isCancellato());
                     statement.executeUpdate();
@@ -235,7 +236,7 @@ public class Dao_Utenti
                     statement.setString(1, utente.getNome());
                     statement.setString(2, utente.getIndirizzo());
                     statement.setString(3, utente.getLuogo());
-                    statement.setString(4, utente.getRuolo().name());
+                    statement.setString(4, utente.getRuolo().name().toLowerCase());
                     statement.setString(5, CryptoHelper.encode(utente.getPassword()));
                     statement.setBoolean(6, false);
                     statement.setInt(7, utente.getId());
@@ -254,7 +255,7 @@ public class Dao_Utenti
         return response;
     }
 
-    public boolean delete(Utente utente)
+    public boolean delete(int id)
     {
         boolean response = true;
         connection = LinkDB.getConnection();
@@ -267,7 +268,7 @@ public class Dao_Utenti
             {
                 PreparedStatement statement = connection.prepareStatement(QUERY_DELETE);
                 statement.setBoolean(1, true);
-                statement.setInt(2, utente.getId());
+                statement.setInt(2, id);
 
                 statement.executeUpdate();
 
@@ -310,7 +311,7 @@ public class Dao_Utenti
                             utente,
                             daoPiste.findById(resultSet.getInt(3)),
                             resultSet.getDate(4).toLocalDate());
-                            response.add(biglietto);
+                    response.add(biglietto);
                 }
 
                 resultSet.close();

@@ -5,7 +5,6 @@ import model.Impianto;
 import model.Pista;
 import model.Utente;
 import singleton.LinkDB;
-import test.Main;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -123,7 +122,7 @@ public class Dao_Biglietti
         return response;
     }
 
-    public boolean delete(Biglietto biglietto)
+    public boolean delete(int id)
     {
         boolean response = true;
 
@@ -136,7 +135,7 @@ public class Dao_Biglietti
             try
             {
                 PreparedStatement statement = connection.prepareStatement(QUERY_DELETE);
-                statement.setInt(1, biglietto.getId());
+                statement.setInt(1, id);
                 statement.execute();
                 statement.close();
                 LinkDB.closeConnection();
@@ -146,6 +145,44 @@ public class Dao_Biglietti
                 response = false;
                 e.printStackTrace();
             }
+        }
+
+        return response;
+    }
+
+    public List<Biglietto> getAll()
+    {
+        Dao_Utenti daoUtenti = new Dao_Utenti();
+        Dao_Piste daoPiste = new Dao_Piste();
+        List<Biglietto> response = new ArrayList<>();
+
+        connection = LinkDB.getConnection();
+
+        String sql = "SELECT * FROM biglietti";
+
+        try
+        {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+
+            ResultSet resultSet = statement.getResultSet();
+
+            while (resultSet.next())
+            {
+                response.add(new Biglietto(resultSet.getInt(1),
+                        daoUtenti.findById(resultSet.getInt(2)),
+                        daoPiste.findById(resultSet.getInt(3)),
+                        resultSet.getDate(4).toLocalDate()));
+            }
+
+            resultSet.close();
+            statement.close();
+            LinkDB.closeConnection();
+        }
+        catch (SQLException e)
+        {
+            response = null;
+            e.printStackTrace();
         }
 
         return response;
@@ -288,5 +325,4 @@ public class Dao_Biglietti
 
         return listaBiglietti2;
     }
-
 }

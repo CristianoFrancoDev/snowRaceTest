@@ -1,14 +1,10 @@
 package dao;
 
 import model.Attrezzatura;
-import model.Biglietto;
-import model.Noleggio;
 import singleton.LinkDB;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Dao_Attrezzature
 {
@@ -23,8 +19,8 @@ public class Dao_Attrezzature
     /**
      * Costruttore vuoto
      */
-    public Dao_Attrezzature(){
-
+    public Dao_Attrezzature()
+    {
     }
 
     public Attrezzatura findById(int id)

@@ -120,7 +120,7 @@ public class Dao_Noleggi
         return response;
     }
 
-    public boolean delete(Noleggio noleggio)
+    public boolean delete(int id)
     {
         boolean response = true;
 
@@ -129,7 +129,7 @@ public class Dao_Noleggi
         try
         {
             PreparedStatement statement = connection.prepareStatement(QUERY_DELETE);
-            statement.setInt(1, noleggio.getId());
+            statement.setInt(1, id);
             statement.executeUpdate();
             statement.close();
             LinkDB.closeConnection();
@@ -138,6 +138,43 @@ public class Dao_Noleggi
         {
             response= false;
             ex.printStackTrace();
+        }
+
+        return response;
+    }
+
+    public List<Noleggio> getAll()
+    {
+        Dao_Attrezzature daoAttrezzature = new Dao_Attrezzature();
+        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
+        List<Noleggio> response = new ArrayList<>();
+
+        connection = LinkDB.getConnection();
+
+        String sql = "SELECT * FROM noleggi";
+
+        try
+        {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+
+            ResultSet resultSet = statement.getResultSet();
+
+            while (resultSet.next())
+            {
+                response.add(new Noleggio(resultSet.getInt(1),
+                        daoAttrezzature.findById(resultSet.getInt(2)),
+                        daoBiglietti.findById(resultSet.getInt(3))));
+            }
+
+            resultSet.close();
+            statement.close();
+            LinkDB.closeConnection();
+        }
+        catch (SQLException e)
+        {
+            response = null;
+            e.printStackTrace();
         }
 
         return response;

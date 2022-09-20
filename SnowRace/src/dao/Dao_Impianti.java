@@ -305,14 +305,14 @@ public class Dao_Impianti
 
                 response2.add(resultSet.getString(7));
             }
-                response3.add(response1 + "\n" + "Piste associate all'impianto: " + response2);
-                resultSet.close();
-                preparedStatement.close();
-                LinkDB.closeConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            response3.add(response1 + "\n" + "Piste associate all'impianto: " + response2);
+            resultSet.close();
+            preparedStatement.close();
+            LinkDB.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return response3;
-        }
     }
+}

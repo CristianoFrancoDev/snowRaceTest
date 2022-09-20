@@ -3,31 +3,43 @@ package service;
 import converter.UtenteConverter;
 import dao.Dao_Utenti;
 import dto.UtenteDTO;
+import interfaces.Service;
 import model.Utente;
-
 import java.util.List;
 
-public class UtentiService
+public class UtentiService implements Service<UtenteDTO>
 {
+    private static UtentiService instance;
     private Dao_Utenti daoUtenti;
     private UtenteConverter utenteConverter;
 
-    public UtentiService()
+    private UtentiService()
     {
         daoUtenti = new Dao_Utenti();
-        utenteConverter = new UtenteConverter();
+        utenteConverter = UtenteConverter.getInstance();
     }
 
-    public boolean login(String nome, String password)
+    public static UtentiService getInstance()
+    {
+        if (instance == null)
+            instance = new UtentiService();
+
+        return instance;
+    }
+
+    public String login(String nome, String password)
     {
         Utente utente = daoUtenti.findByNomeAndPassword(nome, password);
 
-        return (utente != null);
+        if (utente == null)
+            return null;
+        else
+            return (utente.getRuolo().name());
     }
 
     public boolean insert(UtenteDTO utenteDTO)
     {
-        Utente utente = utenteConverter.DTOtoUtente(utenteDTO);
+        Utente utente = utenteConverter.toEntity(utenteDTO);
         boolean response = false;
 
         if (daoUtenti.save(utente))
@@ -41,12 +53,12 @@ public class UtentiService
 
     public boolean update(UtenteDTO utenteDTO)
     {
-        return daoUtenti.save(utenteConverter.DTOtoUtente(utenteDTO));
+        return daoUtenti.save(utenteConverter.toEntity(utenteDTO));
     }
 
-    public boolean delete(UtenteDTO utenteDTO)
+    public boolean delete(int id)
     {
-        return daoUtenti.delete(utenteConverter.DTOtoUtente(utenteDTO));
+        return daoUtenti.delete(id);
     }
 
     public List<UtenteDTO> getAll()
@@ -56,7 +68,7 @@ public class UtentiService
         if (utenti == null)
             return null;
         else
-            return utenteConverter.utenteToDto(utenti);
+            return utenteConverter.toDTO(utenti);
     }
 
     public UtenteDTO read(int id)
@@ -66,6 +78,6 @@ public class UtentiService
         if (utente == null)
             return null;
         else
-            return utenteConverter.utenteToDto(daoUtenti.findById(id));
+            return utenteConverter.toDTO(daoUtenti.findById(id));
     }
 }

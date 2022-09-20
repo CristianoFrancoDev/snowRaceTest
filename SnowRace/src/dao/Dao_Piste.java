@@ -3,11 +3,7 @@ package dao;
 import model.Impianto;
 import model.Pista;
 import singleton.LinkDB;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,7 +116,6 @@ public class Dao_Piste
 
         connection = LinkDB.getConnection();
 
-
         try
         {
             PreparedStatement statement = connection.prepareStatement(QUERY_DELETE);
@@ -135,6 +130,42 @@ public class Dao_Piste
         {
             response = false;
             ex.printStackTrace();
+        }
+
+        return response;
+    }
+
+    public List<Pista> getAll()
+    {
+        Dao_Impianti daoImpianti = new Dao_Impianti();
+        List<Pista> response = new ArrayList<>();
+
+        connection = LinkDB.getConnection();
+
+        String sql = "SELECT * FROM piste";
+
+        try
+        {
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
+
+            ResultSet resultSet = statement.getResultSet();
+
+            while (resultSet.next())
+            {
+                response.add(new Pista(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        daoImpianti.findById(resultSet.getInt(3))));
+            }
+
+            resultSet.close();
+            statement.close();
+            LinkDB.closeConnection();
+        }
+        catch (SQLException e)
+        {
+            response = null;
+            e.printStackTrace();
         }
 
         return response;
