@@ -13,20 +13,30 @@ import java.util.List;
 
 public class Dao_Piste
 {
+    private final String QUERY_CREATE= "INSERT INTO piste (titolo, id_impianto) VALUES (?, ?)";
+    private final String QUERY_READ = "SELECT * FROM piste WHERE id = ?";
+    private final String QUERY_READ_LAST_RACETRACK_INSERTED = "SELECT LAST_INSERT_ID()";
+    private final String QUERY_UPDATE = "UPDATE piste SET titolo = ?, id_impianto = ? WHERE id = ?";
+    private final String QUERY_DELETE = "DELETE FROM piste WHERE id = ?";
+    private final String QUERY_IMPIANTO_BY_PISTA = "SELECT * FROM impianti WHERE id = ?";
     private Connection connection;
 
+    /**
+     * Costruttore vuoto
+     */
+    public Dao_Piste(){
+
+    }
     public Pista findById(int id)
     {
         Dao_Impianti daoImpianti = new Dao_Impianti();
         Pista response = null;
 
-        String sql = "SELECT * FROM piste WHERE id = ?";
-
         connection = LinkDB.getConnection();
 
         try
         {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_READ);
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -63,19 +73,14 @@ public class Dao_Piste
         {
             if (pista.getId() == 0)
             {
-                sql = "INSERT INTO piste (titolo, id_impianto) VALUES (?, ?)";
-
-                statement = connection.prepareStatement(sql);
-
+                statement = connection.prepareStatement(QUERY_CREATE);
                 statement.setString(1, pista.getTitolo());
                 statement.setInt(2, pista.getImpianto().getId());
-
                 statement.executeUpdate();
 
-                sql = "SELECT LAST_INSERT_ID()";
 
                 Statement stmt = connection.createStatement();
-                stmt.execute(sql);
+                stmt.execute(QUERY_READ_LAST_RACETRACK_INSERTED);
 
                 ResultSet resultSet = stmt.getResultSet();
 
@@ -89,10 +94,7 @@ public class Dao_Piste
             }
             else
             {
-                sql = "UPDATE piste SET titolo = ?, id_impianto = ? WHERE id = ?";
-
-                statement = connection.prepareStatement(sql);
-
+                statement = connection.prepareStatement(QUERY_UPDATE);
                 statement.setString(1, pista.getTitolo());
                 statement.setInt(2, pista.getImpianto().getId());
                 statement.setInt(3, pista.getId());
@@ -118,11 +120,10 @@ public class Dao_Piste
 
         connection = LinkDB.getConnection();
 
-        String sql = "DELETE FROM piste WHERE id = ?";
 
         try
         {
-            PreparedStatement statement = connection.prepareStatement(sql);
+            PreparedStatement statement = connection.prepareStatement(QUERY_DELETE);
             statement.setInt(1, id);
 
             statement.execute();
@@ -145,11 +146,9 @@ public class Dao_Piste
 
         connection = LinkDB.getConnection();
 
-        String sql = "SELECT * FROM impianti WHERE id = ?";
-
         try
         {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_IMPIANTO_BY_PISTA);
             preparedStatement.setInt(1, pista.getImpianto().getId());
 
             ResultSet resultSet = preparedStatement.executeQuery();

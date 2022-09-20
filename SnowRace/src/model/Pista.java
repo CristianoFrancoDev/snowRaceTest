@@ -95,7 +95,7 @@ public class Pista
     @Override
     public String toString() {
         return "Piste{" +
-                "numero=" + titolo +
+                "titolo=" + titolo +
                 ", impianto=" + impianto +
                 '}'+"\n";
     }

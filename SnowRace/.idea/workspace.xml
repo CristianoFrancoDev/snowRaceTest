@@ -2,35 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4dcc65e-1e9f-4872-812d-33ea95b5ddf5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_30.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_28.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SnowRace.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SnowRace.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/controller/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Attrezzatura.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Attrezzature.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Attrezzature.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Biglietti.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Biglietti.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Impianti.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Impianti.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Users.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Attrezzatura.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Attrezzatura.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Biglietto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Biglietto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Impianto.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Impianto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Noleggio.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Noleggio.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Noleggi.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Noleggi.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Piste.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Piste.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Utenti.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/dao/Dao_Utenti.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Pista.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Pista.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Ruolo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Ruolo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/model/Utente.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/model/Utente.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SnowRace/singleton/LinkDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/singleton/LinkDB.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SnowRace/test/main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SnowRace/test/main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/Dao_Attrezzature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Attrezzature.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dao/Dao_Biglietti.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Biglietti.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dao/Dao_Impianti.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Impianti.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dao/Dao_Noleggi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Noleggi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dao/Dao_Piste.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Piste.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dao/Dao_Utenti.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dao/Dao_Utenti.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Attrezzatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Attrezzatura.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Biglietto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Biglietto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Impianto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Impianto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Noleggio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Noleggio.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Pista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Pista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Ruolo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Ruolo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Utente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/singleton/LinkDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/singleton/LinkDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

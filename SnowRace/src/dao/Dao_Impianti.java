@@ -12,13 +12,29 @@ import java.util.Set;
 
 public class Dao_Impianti
 {
+    public final String QUERY_ALL = "SELECT * FROM impianti";
+    public final String QUERY_CREATE = "INSERT INTO impianti (titolo, descrizione, foto, prezzo) VALUES (?, ?, ?, ?)";
+    public final String QUERY_READ = "SELECT * FROM impianti WHERE id = ?";
+
+    public final String QUERY_READ_LAST_SKY_FACILITY = "SELECT LAST_INSERT_ID()";
+    public final String QUERY_UPDATE = "UPDATE impianti SET titolo = ?, descrizione = ?, foto = ?, prezzo = ? WHERE id = ?";
+    public final String QUERY_DELETE = "DELETE FROM impianti WHERE id = ?";
+
+    public final String QUERY_FILTER_BY_NAME_SKY_FACILITY = "SELECT * FROM impianti WHERE titolo = ?";
+    public final String QUERY_PISTE_BY_NOME_IMPIANTO = "SELECT * FROM impianti INNER JOIN piste ON impianti.id = piste.id_impianto WHERE impianti.id = ?";
+    public final String QUERY_PISTE_BY_ID_IMPIANTO = "SELECT * FROM piste WHERE id_impianto = ?";
+
     private  Connection connection;
 
+    /**
+     * Costruttore vuoto
+     */
+    public Dao_Impianti(){
+
+    }
     public Impianto findById(int id)
     {
         Impianto impianto = null;
-
-        String sql = "SELECT * FROM impianti WHERE id = ?";
 
         connection = LinkDB.getConnection();
 
@@ -26,8 +42,47 @@ public class Dao_Impianti
         {
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(QUERY_READ);
                 statement.setInt(1, id);
+                statement.execute();
+
+                ResultSet resultSet = statement.getResultSet();
+
+                if (resultSet != null && resultSet.next())
+                {
+                    impianto = new Impianto(resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3),
+                            resultSet.getString(4),
+                            resultSet.getDouble(5));
+                }
+
+                resultSet.close();
+                statement.close();
+                LinkDB.closeConnection();
+            }
+            catch (Exception ex)
+            {
+                impianto = null;
+                ex.printStackTrace();
+            }
+        }
+
+        return impianto;
+    }
+
+    public Impianto findByName(String name)
+    {
+        Impianto impianto = null;
+
+        connection = LinkDB.getConnection();
+
+        if (connection != null)
+        {
+            try
+            {
+                PreparedStatement statement = connection.prepareStatement(QUERY_FILTER_BY_NAME_SKY_FACILITY);
+                statement.setString(1, name);
                 statement.execute();
 
                 ResultSet resultSet = statement.getResultSet();
@@ -61,12 +116,10 @@ public class Dao_Impianti
 
         connection = LinkDB.getConnection();
 
-        String sql = "SELECT * FROM impianti";
-
         try
         {
             Statement statement = connection.createStatement();
-            statement.execute(sql);
+            statement.execute(QUERY_ALL);
 
             ResultSet resultSet = statement.getResultSet();
 
@@ -109,22 +162,15 @@ public class Dao_Impianti
                 if (impianto.getId() == 0)
                 {
                     //creazione impianto
-
-                    sql = "INSERT INTO impianti (titolo, descrizione, foto, prezzo) VALUES (?, ?, ?, ?)";
-
-                    statement = connection.prepareStatement(sql);
-
+                    statement = connection.prepareStatement(QUERY_CREATE);
                     statement.setString(1, impianto.getTitolo());
                     statement.setString(2, impianto.getDescrizione());
                     statement.setString(3, impianto.getFoto());
                     statement.setDouble(4, impianto.getPrezzo());
-
                     statement.executeUpdate();
 
-                    sql = "SELECT LAST_INSERT_ID()";
-
                     Statement stmt = connection.createStatement();
-                    stmt.execute(sql);
+                    stmt.execute(QUERY_READ_LAST_SKY_FACILITY);
 
                     ResultSet resultSet = stmt.getResultSet();
 
@@ -139,17 +185,12 @@ public class Dao_Impianti
                 else
                 {
                     //modifica impianto
-
-                    sql = "UPDATE impianti SET titolo = ?, descrizione = ?, foto = ?, prezzo = ? WHERE id = ?";
-
-                    statement = connection.prepareStatement(sql);
-
+                    statement = connection.prepareStatement(QUERY_UPDATE);
                     statement.setString(1, impianto.getTitolo());
                     statement.setString(2, impianto.getDescrizione());
                     statement.setString(3, impianto.getFoto());
                     statement.setDouble(4, impianto.getPrezzo());
                     statement.setInt(5, impianto.getId());
-
                     statement.executeUpdate();
                 }
 
@@ -176,11 +217,9 @@ public class Dao_Impianti
             response = false;
         else
         {
-            String sql = "DELETE FROM impianti WHERE id = ?";
-
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(QUERY_DELETE);
 
                 statement.setInt(1, impianto.getId());
                 statement.executeUpdate();
@@ -207,13 +246,10 @@ public class Dao_Impianti
 
         if (connection != null)
         {
-            String sql = "SELECT * FROM piste WHERE id_impianto = ?";
-
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(QUERY_PISTE_BY_ID_IMPIANTO);
                 statement.setInt(1, impianto.getId());
-
                 statement.execute();
 
                 ResultSet resultSet = statement.getResultSet();
@@ -237,4 +273,46 @@ public class Dao_Impianti
 
         return response;
     }
-}
+
+    public ArrayList<String> filterByName(String name)
+    {
+        Dao_Impianti daoImpianti = new Dao_Impianti();
+        Impianto impianto = daoImpianti.findByName(name);
+        Dao_Piste daoPiste = new Dao_Piste();
+
+        ArrayList<Impianto> response1 = new ArrayList<Impianto>();
+        ArrayList<String> response2 = new ArrayList<String>();
+        ArrayList<String> response3 = new ArrayList<String>();
+
+        connection = LinkDB.getConnection();
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_PISTE_BY_NOME_IMPIANTO);
+            preparedStatement.setInt(1, impianto.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next())
+            {
+                if(response1.isEmpty()){
+                    response1.add(new Impianto(
+                            resultSet.getInt(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3),
+                            resultSet.getString(4),
+                            resultSet.getDouble(5))
+                    );
+                }
+
+                response2.add(resultSet.getString(7));
+            }
+                response3.add(response1 + "\n" + "Piste associate all'impianto: " + response2);
+                resultSet.close();
+                preparedStatement.close();
+                LinkDB.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        return response3;
+        }
+    }

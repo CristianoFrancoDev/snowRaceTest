@@ -13,8 +13,24 @@ import java.util.Set;
 
 public class Dao_Utenti
 {
+    private final String QUERY_ALL = "SELECT * FROM utenti";
+    private final String QUERY_CREATE = "INSERT INTO utenti (nome, indirizzo, luogo, ruolo, password, cancellato) VALUES (?, ?, ?, ?, ?, ?)";
+    private final String QUERY_READ = "SELECT * FROM utenti WHERE id = ?";
+    private final String QUERY_READ_BY_NAME = "SELECT * FROM utenti WHERE nome = ?";
+    private final String QUERY_READ_BY_NAME_AND_PASSWORD = "SELECT * FROM utenti WHERE nome = ? AND password = ?";
+    private final String QUERY_READ_LAST_USER_INSERTED = "SELECT LAST_INSERT_ID()";
+    private final String QUERY_UPDATE = "UPDATE utenti SET nome = ?, indirizzo = ?, luogo = ?, ruolo = ?, password = ?, cancellato = ? WHERE id = ?";
+    private final String QUERY_DELETE = "UPDATE utenti SET cancellato = ? WHERE id = ?";
+    private final String QUERY_TICKETS_BY_USER_ID = "SELECT * FROM biglietti WHERE id_utente = ?";
+
     private Connection connection;
 
+    /**
+     * Costruttore vuoto
+     */
+    public Dao_Utenti(){
+
+    }
     public Utente findById(int id)
     {
         Utente response = null;
@@ -23,11 +39,9 @@ public class Dao_Utenti
 
         if (connection != null)
         {
-            String sql = "SELECT * FROM utenti WHERE id = ?";
-
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(QUERY_READ);
                 statement.setInt(1, id);
 
                 ResultSet resultSet = statement.executeQuery();
@@ -64,11 +78,9 @@ public class Dao_Utenti
 
         if (connection != null)
         {
-            String sql = "SELECT * FROM utenti WHERE nome = ?";
-
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(QUERY_READ_BY_NAME);
                 statement.setString(1, nome);
 
                 ResultSet resultSet = statement.executeQuery();
@@ -101,7 +113,6 @@ public class Dao_Utenti
         return response;
     }
 
-
     public Utente findByNomeAndPassword(String nome, String password)
     {
         Utente response = null;
@@ -110,11 +121,9 @@ public class Dao_Utenti
 
         if (connection != null)
         {
-            String sql = "SELECT * FROM utenti WHERE nome = ? AND password = ?";
-
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(QUERY_READ_BY_NAME_AND_PASSWORD);
                 statement.setString(1, nome);
                 statement.setString(2, CryptoHelper.encode(password));
 
@@ -150,12 +159,10 @@ public class Dao_Utenti
 
         connection = LinkDB.getConnection();
 
-        String sql = "SELECT * FROM utenti";
-
         try
         {
             Statement statement = connection.createStatement();
-            statement.execute(sql);
+            statement.execute(QUERY_ALL);
 
             ResultSet resultSet = statement.getResultSet();
 
@@ -198,53 +205,41 @@ public class Dao_Utenti
                 if (utente.getId() == 0)
                 {
                     //creazione utente
+                    statement = connection.prepareStatement(QUERY_CREATE);
+                    statement.setString(1, utente.getNome());
+                    statement.setString(2, utente.getIndirizzo());
+                    statement.setString(3, utente.getLuogo());
+                    statement.setString(4, utente.getRuolo().name());
+                    statement.setString(5, CryptoHelper.encode(utente.getPassword()));
+                    statement.setBoolean(6, utente.isCancellato());
+                    statement.executeUpdate();
 
-                    String sql = "INSERT INTO utenti (nome, indirizzo, luogo, ruolo, password, cancellato)";
-                    sql += " VALUES (?, ?, ?, ?, ?, ?)";
+                    Statement stmt = connection.createStatement();
+                    stmt.execute(QUERY_READ_LAST_USER_INSERTED);
 
-                        statement = connection.prepareStatement(sql);
+                    ResultSet resultSet = stmt.getResultSet();
 
-                        statement.setString(1, utente.getNome());
-                        statement.setString(2, utente.getIndirizzo());
-                        statement.setString(3, utente.getLuogo());
-                        statement.setString(4, utente.getRuolo().name());
-                        statement.setString(5, CryptoHelper.encode(utente.getPassword()));
-                        statement.setBoolean(6, utente.isCancellato());
+                    if (resultSet.next())
+                        utente.setId(resultSet.getInt(1));
+                    else
+                        response = false;
 
-                        statement.executeUpdate();
-
-                        sql = "SELECT LAST_INSERT_ID()";
-
-                        Statement stmt = connection.createStatement();
-                        stmt.execute(sql);
-
-                        ResultSet resultSet = stmt.getResultSet();
-
-                        if (resultSet.next())
-                            utente.setId(resultSet.getInt(1));
-                        else
-                            response = false;
-
-                        resultSet.close();
-                        stmt.close();
+                    resultSet.close();
+                    stmt.close();
                 }
                 else
                 {
                     //modifica utente
+                    statement = connection.prepareStatement(QUERY_UPDATE);
 
-                    String sql = "UPDATE utenti SET nome = ?, indirizzo = ?, luogo = ?, ruolo = ?, password = ?, cancellato = ? WHERE id = ?";
-
-                        statement = connection.prepareStatement(sql);
-
-                        statement.setString(1, utente.getNome());
-                        statement.setString(2, utente.getIndirizzo());
-                        statement.setString(3, utente.getLuogo());
-                        statement.setString(4, utente.getRuolo().name());
-                        statement.setString(5, CryptoHelper.encode(utente.getPassword()));
-                        statement.setBoolean(6, false);
-                        statement.setInt(7, utente.getId());
-
-                        statement.executeUpdate();
+                    statement.setString(1, utente.getNome());
+                    statement.setString(2, utente.getIndirizzo());
+                    statement.setString(3, utente.getLuogo());
+                    statement.setString(4, utente.getRuolo().name());
+                    statement.setString(5, CryptoHelper.encode(utente.getPassword()));
+                    statement.setBoolean(6, false);
+                    statement.setInt(7, utente.getId());
+                    statement.executeUpdate();
                 }
 
                 statement.close();
@@ -262,9 +257,6 @@ public class Dao_Utenti
     public boolean delete(Utente utente)
     {
         boolean response = true;
-
-        String sql = "UPDATE utenti SET cancellato = ? WHERE id = ?";
-
         connection = LinkDB.getConnection();
 
         if (connection == null)
@@ -273,8 +265,7 @@ public class Dao_Utenti
         {
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
-
+                PreparedStatement statement = connection.prepareStatement(QUERY_DELETE);
                 statement.setBoolean(1, true);
                 statement.setInt(2, utente.getId());
 
@@ -298,8 +289,6 @@ public class Dao_Utenti
         Dao_Piste daoPiste = new Dao_Piste();
         List<Biglietto> response = null;
 
-        String sql = "SELECT * FROM biglietti WHERE id_utente = ?";
-
         connection = LinkDB.getConnection();
 
         if (connection != null)
@@ -308,7 +297,7 @@ public class Dao_Utenti
 
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(QUERY_TICKETS_BY_USER_ID);
                 statement.setInt(1, utente.getId());
 
                 statement.execute();
@@ -321,7 +310,6 @@ public class Dao_Utenti
                             utente,
                             daoPiste.findById(resultSet.getInt(3)),
                             resultSet.getDate(4).toLocalDate());
-
                             response.add(biglietto);
                 }
 

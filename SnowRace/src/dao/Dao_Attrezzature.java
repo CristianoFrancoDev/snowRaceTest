@@ -12,7 +12,20 @@ import java.util.Set;
 
 public class Dao_Attrezzature
 {
+    private final String QUERY_ALL = "SELECT * FROM attrezzature";
+    private final String QUERY_CREATE = "INSERT INTO attrezzature (articolo) VALUES (?)";
+    private final String QUERY_READ = "SELECT * FROM attrezzature WHERE id = ?";
+    private final String QUERY_UPDATE = "UPDATE attrezzature SET articolo = ? WHERE id = ?";
+    private final String QUERY_DELETE = "UPDATE attrezzature SET articolo = ? WHERE id = ?";
+
     private Connection connection;
+
+    /**
+     * Costruttore vuoto
+     */
+    public Dao_Attrezzature(){
+
+    }
 
     public Attrezzatura findById(int id)
     {
@@ -22,12 +35,9 @@ public class Dao_Attrezzature
 
         if (connection != null)
         {
-            String sql = "SELECT * FROM attrezzature WHERE id = ?";
-
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
-
+                PreparedStatement statement = connection.prepareStatement(QUERY_READ);
                 statement.setInt(1, id);
                 statement.execute();
 
@@ -56,16 +66,12 @@ public class Dao_Attrezzature
     public List<Attrezzatura> findAll()
     {
         List<Attrezzatura> response = new ArrayList<>();
-
         connection = LinkDB.getConnection();
-
-        String sql = "SELECT * FROM attrezzature";
 
         try
         {
             Statement statement = connection.createStatement();
-            statement.execute(sql);
-
+            statement.execute(QUERY_ALL);
             ResultSet resultSet = statement.getResultSet();
 
             while (resultSet.next())
@@ -104,10 +110,7 @@ public class Dao_Attrezzature
                 if (attrezzatura.getId() == 0)
                 {
                     //creazione attrezzatura
-
-                    sql = "INSERT INTO attrezzature (articolo) VALUES (?)";
-
-                    statement = connection.prepareStatement(sql);
+                    statement = connection.prepareStatement(QUERY_CREATE);
                     statement.setString(1, attrezzatura.getArticolo());
 
                     statement.executeUpdate();
@@ -130,10 +133,7 @@ public class Dao_Attrezzature
                 else
                 {
                     //modifica attrezzatura
-
-                    sql = "UPDATE attrezzature SET articolo = ? WHERE id = ?";
-
-                    statement = connection.prepareStatement(sql);
+                    statement = connection.prepareStatement(QUERY_UPDATE);
                     statement.setString(1, attrezzatura.getArticolo());
                     statement.setInt(2, attrezzatura.getId());
 
@@ -163,11 +163,9 @@ public class Dao_Attrezzature
             response = false;
         else
         {
-            String sql = "DELETE FROM attrezzature WHERE id = ?";
-
             try
             {
-                PreparedStatement statement = connection.prepareStatement(sql);
+                PreparedStatement statement = connection.prepareStatement(QUERY_DELETE);
                 statement.setInt(1, attrezzatura.getId());
 
                 statement.execute();
