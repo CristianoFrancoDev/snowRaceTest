@@ -7,29 +7,36 @@ import singleton.LinkDB;
 import util.CryptoHelper;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+//singleton
 public class Dao_Utenti
 {
-    private final String QUERY_ALL = "SELECT * FROM utenti";
+    private static Dao_Utenti instance;
+    private final String QUERY_ALL = "SELECT * FROM utenti WHERE cancellato = 0";
     private final String QUERY_CREATE = "INSERT INTO utenti (nome, indirizzo, luogo, ruolo, password, cancellato) VALUES (?, ?, ?, ?, ?, ?)";
     private final String QUERY_READ = "SELECT * FROM utenti WHERE id = ?";
-    private final String QUERY_READ_BY_NAME = "SELECT * FROM utenti WHERE nome = ?";
-    private final String QUERY_READ_BY_NAME_AND_PASSWORD = "SELECT * FROM utenti WHERE nome = ? AND password = ?";
+    private final String QUERY_READ_BY_NAME = "SELECT * FROM utenti WHERE nome = ? AND cancellato = 0";
+    private final String QUERY_READ_BY_NAME_AND_PASSWORD = "SELECT * FROM utenti WHERE nome = ? AND password = ? AND cancellato = 0";
     private final String QUERY_READ_LAST_USER_INSERTED = "SELECT LAST_INSERT_ID()";
     private final String QUERY_UPDATE = "UPDATE utenti SET nome = ?, indirizzo = ?, luogo = ?, ruolo = ?, password = ?, cancellato = ? WHERE id = ?";
     private final String QUERY_DELETE = "UPDATE utenti SET cancellato = ? WHERE id = ?";
     private final String QUERY_TICKETS_BY_USER_ID = "SELECT * FROM biglietti WHERE id_utente = ?";
-
     private Connection connection;
 
     /**
      * Costruttore vuoto
      */
-    public Dao_Utenti()
+    private Dao_Utenti()
     {
+    }
+
+    public static Dao_Utenti getInstance()
+    {
+        if (instance == null)
+            instance = new Dao_Utenti();
+
+        return instance;
     }
 
     public Utente findById(int id)
@@ -53,7 +60,7 @@ public class Dao_Utenti
                             resultSet.getString(2),
                             resultSet.getString(3),
                             resultSet.getString(4),
-                            Ruolo.valueOf(resultSet.getString(5)),
+                            Ruolo.valueOf(resultSet.getString(5).toUpperCase()),
                             CryptoHelper.decode(resultSet.getString(6)),
                             resultSet.getBoolean(7));
                 }
@@ -94,7 +101,7 @@ public class Dao_Utenti
                                 resultSet.getString(2),
                                 resultSet.getString(3),
                                 resultSet.getString(4),
-                                Ruolo.valueOf(resultSet.getString(5)),
+                                Ruolo.valueOf(resultSet.getString(5).toUpperCase()),
                                 CryptoHelper.decode(resultSet.getString(6)),
                                 resultSet.getBoolean(7));
                     }
@@ -287,7 +294,6 @@ public class Dao_Utenti
     public List<Biglietto> getBiglietti(Utente utente)
     {
         Biglietto biglietto;
-        Dao_Piste daoPiste = new Dao_Piste();
         List<Biglietto> response = null;
 
         connection = LinkDB.getConnection();
@@ -309,7 +315,7 @@ public class Dao_Utenti
                 {
                     biglietto = new Biglietto(resultSet.getInt(1),
                             utente,
-                            daoPiste.findById(resultSet.getInt(3)),
+                            Dao_Piste.getInstance().findById(resultSet.getInt(3)),
                             resultSet.getDate(4).toLocalDate());
                     response.add(biglietto);
                 }

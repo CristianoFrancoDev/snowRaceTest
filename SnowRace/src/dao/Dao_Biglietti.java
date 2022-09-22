@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+//singleton
 public class Dao_Biglietti
 {
     private final String QUERY_CREATE = "INSERT INTO biglietti (id_utente, id_pista, data) VALUES (?, ?, ?)";
@@ -22,17 +23,22 @@ public class Dao_Biglietti
     private final String QUERY_FILTER_BY_DATE = "SELECT * FROM biglietti WHERE id_utente = ? AND DATE(data) BETWEEN ? AND ?";
     private final String QUERY_FILTER_BY_RACETRACK = "SELECT * FROM biglietti WHERE id_pista = ? AND id_utente = ?";
     private static Connection connection;
+    private static Dao_Biglietti instance;
 
-    /**
-     * Costruttore vuoto
-     */
-    public Dao_Biglietti(){
-
+    private Dao_Biglietti()
+    {
     }
+
+    public static Dao_Biglietti getInstance()
+    {
+        if (instance == null)
+            instance = new Dao_Biglietti();
+
+        return instance;
+    }
+
     public Biglietto findById(int id)
     {
-        Dao_Utenti daoUtenti = new Dao_Utenti();
-        Dao_Piste daoPiste = new Dao_Piste();
         Biglietto response = null;
 
         connection = LinkDB.getConnection();
@@ -48,8 +54,8 @@ public class Dao_Biglietti
             if(resultSet.next())
             {
                 response = new Biglietto(resultSet.getInt(1),
-                        daoUtenti.findById(resultSet.getInt(2)),
-                        daoPiste.findById(resultSet.getInt(3)),
+                        Dao_Utenti.getInstance().findById(resultSet.getInt(2)),
+                        Dao_Piste.getInstance().findById(resultSet.getInt(3)),
                         resultSet.getDate(4).toLocalDate());
             }
 
@@ -152,8 +158,6 @@ public class Dao_Biglietti
 
     public List<Biglietto> getAll()
     {
-        Dao_Utenti daoUtenti = new Dao_Utenti();
-        Dao_Piste daoPiste = new Dao_Piste();
         List<Biglietto> response = new ArrayList<>();
 
         connection = LinkDB.getConnection();
@@ -170,8 +174,8 @@ public class Dao_Biglietti
             while (resultSet.next())
             {
                 response.add(new Biglietto(resultSet.getInt(1),
-                        daoUtenti.findById(resultSet.getInt(2)),
-                        daoPiste.findById(resultSet.getInt(3)),
+                        Dao_Utenti.getInstance().findById(resultSet.getInt(2)),
+                        Dao_Piste.getInstance().findById(resultSet.getInt(3)),
                         resultSet.getDate(4).toLocalDate()));
             }
 
@@ -188,11 +192,9 @@ public class Dao_Biglietti
         return response;
     }
 
-    public ArrayList<Biglietto> findByUser(Utente utente)
+    public List<Biglietto> findByUser(Utente utente)
     {
-        Dao_Utenti daoUtenti = new Dao_Utenti();
-        Dao_Piste daoPiste = new Dao_Piste();
-        ArrayList<Biglietto> response = new ArrayList<Biglietto>();
+        List<Biglietto> response = new ArrayList<>();
 
         connection =  LinkDB.getConnection();
 
@@ -205,8 +207,8 @@ public class Dao_Biglietti
             while (resultSet.next())
             {
                 response.add(new Biglietto(resultSet.getInt(1),
-                        daoUtenti.findById(resultSet.getInt(2)),
-                        daoPiste.findById(resultSet.getInt(3)),
+                        Dao_Utenti.getInstance().findById(resultSet.getInt(2)),
+                        Dao_Piste.getInstance().findById(resultSet.getInt(3)),
                         resultSet.getDate(4).toLocalDate()));
             }
 
@@ -226,8 +228,6 @@ public class Dao_Biglietti
 
     public ArrayList<Biglietto> filterBigliettiByData(Utente utente, LocalDate date1, LocalDate date2)
     {
-        Dao_Utenti daoUtenti = new Dao_Utenti();
-        Dao_Piste daoPiste = new Dao_Piste();
         boolean response = true;
         ArrayList<Biglietto> listaBiglietti = new ArrayList<>();
 
@@ -245,8 +245,8 @@ public class Dao_Biglietti
             {
                 Biglietto biglietto = new Biglietto(
                         resultSet.getInt("id"),
-                        daoUtenti.findUser(utente.getNome()),
-                        daoPiste.findById(resultSet.getInt("id_pista")),
+                        Dao_Utenti.getInstance().findUser(utente.getNome()),
+                        Dao_Piste.getInstance().findById(resultSet.getInt("id_pista")),
                         resultSet.getDate(4).toLocalDate());
                 listaBiglietti.add(biglietto);
             }
@@ -263,8 +263,6 @@ public class Dao_Biglietti
 
     public ArrayList<Biglietto> filterByPista(Pista pista, Utente utente)
     {
-        Dao_Utenti daoUtenti = new Dao_Utenti();
-        Dao_Piste daoPiste = new Dao_Piste();
         ArrayList<Biglietto> response = new ArrayList<Biglietto>();
 
         connection =  LinkDB.getConnection();
@@ -279,8 +277,8 @@ public class Dao_Biglietti
             while (resultSet.next())
             {
                 response.add(new Biglietto(resultSet.getInt(1),
-                        daoUtenti.findById(resultSet.getInt(2)),
-                        daoPiste.findById(resultSet.getInt(3)),
+                        Dao_Utenti.getInstance().findById(resultSet.getInt(2)),
+                        Dao_Piste.getInstance().findById(resultSet.getInt(3)),
                         resultSet.getDate(4).toLocalDate()));
             }
 
@@ -303,18 +301,15 @@ public class Dao_Biglietti
         ArrayList<Biglietto> listaBiglietti = new ArrayList<Biglietto>();
         ArrayList<Biglietto> listaBiglietti2 = new ArrayList<Biglietto>();
 
-        Dao_Impianti daoImpianti = new Dao_Impianti();
-        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
-
-        Impianto impianto = daoImpianti.findByName(titolo);
+        Impianto impianto = Dao_Impianti.getInstance().findByName(titolo);
         Biglietto biglietto = new Biglietto();
 
-        List<Pista> listpiste = daoImpianti.getPiste(impianto);
+        List<Pista> listpiste = Dao_Impianti.getInstance().getPiste(impianto);
 
         for(int i=0; i<listpiste.size(); i++)
         {
             Pista pista = new Pista(listpiste.get(i).getId());
-            listaBiglietti = daoBiglietti.filterByPista(pista, utente);
+            listaBiglietti = filterByPista(pista, utente);
 
             for(int j=0; j<listaBiglietti.size(); j++)
             {

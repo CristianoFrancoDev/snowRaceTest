@@ -95,8 +95,10 @@ public class CrudView extends Abstract_View implements interfaces.View
                     MainDispatcher.getInstance().callView("LOGIN", null);
                     break;
             }
-            case "ADMIN_VIEW":
-                switch (scelta)
+
+            break;
+        case "ADMIN_VIEW":
+                switch (scelta.toUpperCase().trim())
                 {
                     case "C":
                         MainDispatcher.getInstance().callAction("ADMIN", "CREA", request);
@@ -114,6 +116,8 @@ public class CrudView extends Abstract_View implements interfaces.View
                         MainDispatcher.getInstance().callView("LOGIN", null);
                         break;
                 }
+
+                break;
         }
     }
 }

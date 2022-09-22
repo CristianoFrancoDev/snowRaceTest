@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+//singleton
 public class UtenteConverter implements Converter<Utente, UtenteDTO>
 {
     private static UtenteConverter instance;
@@ -29,6 +30,7 @@ public class UtenteConverter implements Converter<Utente, UtenteDTO>
                 utente.getIndirizzo(),
                 utente.getLuogo(),
                 utente.getRuolo(),
+                utente.getPassword(),
                 utente.isCancellato());
     }
 
@@ -40,7 +42,7 @@ public class UtenteConverter implements Converter<Utente, UtenteDTO>
                 utenteDTO.getIndirizzo(),
                 utenteDTO.getLuogo(),
                 utenteDTO.getRuolo(),
-                null,
+                utenteDTO.getPassword(),
                 utenteDTO.isCancellato());
     }
 

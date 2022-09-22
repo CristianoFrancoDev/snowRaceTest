@@ -7,14 +7,14 @@ import model.Utente;
 import singleton.LinkDB;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+//singleton
 public class Dao_Noleggi
 {
+    private static Dao_Noleggi instance;
     private Connection connection;
-
     private final String QUERY_CREATE = "INSERT INTO noleggi (id_attrezzatura, id_biglietto) VALUES (?, ?)";
     private final String QUERY_READ = "SELECT * FROM noleggi WHERE id = ?";
     private final String QUERY_LAST_RENTAL_INSERTED = "SELECT LAST_INSERT_ID()";
@@ -24,16 +24,20 @@ public class Dao_Noleggi
     private final String QUERY_BIGLIETTO_BY_NOLEGGIO = "SELECT * biglietti WHERE id = ?";
     private final String QUERY_FILTER_BY_ID_BIGLIETTO = "SELECT * FROM noleggi WHERE id_biglietto = ?";
 
-    /**
-     * Costruttore vuoto
-     */
-    public Dao_Noleggi(){
+    private Dao_Noleggi(){
 
     }
+
+    public static Dao_Noleggi getInstance()
+    {
+        if (instance == null)
+            instance = new Dao_Noleggi();
+
+        return instance;
+    }
+
     public Noleggio findById(int id)
     {
-        Dao_Attrezzature daoAttrezzature = new Dao_Attrezzature();
-        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
         Noleggio response = null;
 
         connection = LinkDB.getConnection();
@@ -50,8 +54,8 @@ public class Dao_Noleggi
 
                 if (resultSet.next())
                     response = new Noleggio(resultSet.getInt(1),
-                            daoAttrezzature.findById(resultSet.getInt(2)),
-                            daoBiglietti.findById(resultSet.getInt(3)));
+                            Dao_Attrezzature.getInstance().findById(resultSet.getInt(2)),
+                            Dao_Biglietti.getInstance().findById(resultSet.getInt(3)));
 
                 resultSet.close();
                 statement.close();
@@ -145,8 +149,6 @@ public class Dao_Noleggi
 
     public List<Noleggio> getAll()
     {
-        Dao_Attrezzature daoAttrezzature = new Dao_Attrezzature();
-        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
         List<Noleggio> response = new ArrayList<>();
 
         connection = LinkDB.getConnection();
@@ -163,8 +165,8 @@ public class Dao_Noleggi
             while (resultSet.next())
             {
                 response.add(new Noleggio(resultSet.getInt(1),
-                        daoAttrezzature.findById(resultSet.getInt(2)),
-                        daoBiglietti.findById(resultSet.getInt(3))));
+                        Dao_Attrezzature.getInstance().findById(resultSet.getInt(2)),
+                        Dao_Biglietti.getInstance().findById(resultSet.getInt(3))));
             }
 
             resultSet.close();
@@ -214,9 +216,6 @@ public class Dao_Noleggi
 
     public Biglietto getBiglietto(Noleggio noleggio)
     {
-        Dao_Utenti daoUtenti = new Dao_Utenti();
-        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
-        Dao_Piste daoPiste = new Dao_Piste();
         Biglietto response = null;
 
         connection = LinkDB.getConnection();
@@ -231,8 +230,8 @@ public class Dao_Noleggi
 
             if (resultSet.next())
                 response = new Biglietto(resultSet.getInt(1),
-                        daoUtenti.findById(resultSet.getInt(2)),
-                        daoPiste.findById(resultSet.getInt(3)),
+                        Dao_Utenti.getInstance().findById(resultSet.getInt(2)),
+                        Dao_Piste.getInstance().findById(resultSet.getInt(3)),
                         resultSet.getDate(4).toLocalDate());
 
             resultSet.close();
@@ -250,8 +249,6 @@ public class Dao_Noleggi
 
     public ArrayList<Noleggio> findByIdBiglietto(Biglietto biglietto)
     {
-        Dao_Attrezzature daoAttrezzature = new Dao_Attrezzature();
-        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
         ArrayList<Noleggio> response = new ArrayList<Noleggio>();
 
         connection =  LinkDB.getConnection();
@@ -265,8 +262,9 @@ public class Dao_Noleggi
             while (resultSet.next())
             {
                 Noleggio noleggio = new Noleggio(resultSet.getInt(1),
-                        daoAttrezzature.findById(resultSet.getInt(2)),
-                        daoBiglietti.findById(resultSet.getInt(3)));
+                        Dao_Attrezzature.getInstance().findById(resultSet.getInt(2)),
+                        Dao_Biglietti.getInstance().findById(resultSet.getInt(3)));
+
                 response.add(noleggio);
             }
 
@@ -290,18 +288,14 @@ public class Dao_Noleggi
         ArrayList<Noleggio> listNoleggio2 = new ArrayList<>();
         Noleggio noleggio = new Noleggio();
 
-        Dao_Utenti daoUtenti = new Dao_Utenti();
-        Dao_Biglietti daoBiglietti = new Dao_Biglietti();
-        Dao_Noleggi dao_noleggi = new Dao_Noleggi();
-
-        utente = daoUtenti.findById(utente.getId());
-        listBiglietti = daoBiglietti.findByUser(utente);
+        utente = Dao_Utenti.getInstance().findById(utente.getId());
+        listBiglietti = new ArrayList<>(Dao_Biglietti.getInstance().findByUser(utente));
 
         for(int i=0; i<listBiglietti.size(); i++)
         {
             Biglietto biglietto = new Biglietto();
             biglietto = listBiglietti.get(i);
-            listNoleggio2 = dao_noleggi.findByIdBiglietto(biglietto);
+            listNoleggio2 = findByIdBiglietto(biglietto);
 
             for(int j=0; j<listNoleggio2.size(); j++){
                 noleggio = listNoleggio2.get(j);

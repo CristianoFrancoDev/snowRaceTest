@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+//singleton
 public class AttrezzaturaConverter implements Converter<Attrezzatura, AttrezzaturaDTO>
 {
     private static AttrezzaturaConverter instance;

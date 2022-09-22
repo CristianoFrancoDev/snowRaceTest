@@ -6,15 +6,25 @@ import dto.AttrezzaturaDTO;
 import model.Attrezzatura;
 import java.util.List;
 
+//singleton
 public class AttrezzatureService
 {
+    private static AttrezzatureService instance;
     private Dao_Attrezzature daoAttrezzatura;
     private AttrezzaturaConverter attrezzaturaConverter;
 
-    public AttrezzatureService()
+    private AttrezzatureService()
     {
-        daoAttrezzatura = new Dao_Attrezzature();
+        daoAttrezzatura = Dao_Attrezzature.getInstance();
         attrezzaturaConverter = AttrezzaturaConverter.getInstance();
+    }
+
+    public static AttrezzatureService getInstance()
+    {
+        if (instance == null)
+            instance = new AttrezzatureService();
+
+        return instance;
     }
 
     public boolean insert(AttrezzaturaDTO attrezzaturaDTO)

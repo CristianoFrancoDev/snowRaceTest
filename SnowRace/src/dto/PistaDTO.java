@@ -44,4 +44,10 @@ public class PistaDTO
     {
         this.impianto = impianto;
     }
+
+    @Override
+    public String toString() {
+        return "Pista: "  + titolo + "\t" +
+                "impianto =" + impianto.toString();
+    }
 }

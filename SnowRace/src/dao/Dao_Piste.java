@@ -1,14 +1,19 @@
 package dao;
 
+import converter.ImpiantoConverter;
 import model.Impianto;
 import model.Pista;
+import service.ImpiantiService;
 import singleton.LinkDB;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//singleton
 public class Dao_Piste
 {
+    private static Dao_Piste instance;
+    private final String QUERY_READ_BY_TITOLO = "SELECT * FROM piste WHERE titolo = ?";
     private final String QUERY_CREATE= "INSERT INTO piste (titolo, id_impianto) VALUES (?, ?)";
     private final String QUERY_READ = "SELECT * FROM piste WHERE id = ?";
     private final String QUERY_READ_LAST_RACETRACK_INSERTED = "SELECT LAST_INSERT_ID()";
@@ -20,12 +25,20 @@ public class Dao_Piste
     /**
      * Costruttore vuoto
      */
-    public Dao_Piste(){
+    private Dao_Piste(){
 
     }
+
+    public static Dao_Piste getInstance()
+    {
+        if (instance == null)
+            instance = new Dao_Piste();
+
+        return instance;
+    }
+
     public Pista findById(int id)
     {
-        Dao_Impianti daoImpianti = new Dao_Impianti();
         Pista response = null;
 
         connection = LinkDB.getConnection();
@@ -41,7 +54,7 @@ public class Dao_Piste
             {
                 response = new Pista(resultSet.getInt(1),
                         resultSet.getString(2),
-                        daoImpianti.findById(resultSet.getInt(3)));
+                        Dao_Impianti.getInstance().findById(resultSet.getInt(3)));
             }
 
             resultSet.close();
@@ -52,6 +65,48 @@ public class Dao_Piste
         {
             response = null;
             ex.printStackTrace();
+        }
+
+        return response;
+    }
+
+    public Pista findPista(String titolo)
+    {
+        Pista response = null;
+        ImpiantiService impiantiService = new ImpiantiService();
+
+        connection = LinkDB.getConnection();
+
+        if (connection != null)
+        {
+            try
+            {
+                PreparedStatement statement = connection.prepareStatement(QUERY_READ_BY_TITOLO);
+                statement.setString(1, titolo);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet != null)
+                {
+                    if (resultSet.next())
+                    {
+                        Impianto impianto = ImpiantoConverter.getInstance().toEntity(impiantiService.read(resultSet.getInt(3)));
+
+                        response = new Pista(resultSet.getInt(1),
+                                resultSet.getString(2),
+                                impianto);
+                    }
+                }
+
+                resultSet.close();
+                statement.close();
+                LinkDB.closeConnection();
+            }
+            catch (Exception ex)
+            {
+                response = null;
+                ex.printStackTrace();
+            }
         }
 
         return response;
@@ -137,7 +192,6 @@ public class Dao_Piste
 
     public List<Pista> getAll()
     {
-        Dao_Impianti daoImpianti = new Dao_Impianti();
         List<Pista> response = new ArrayList<>();
 
         connection = LinkDB.getConnection();
@@ -155,7 +209,7 @@ public class Dao_Piste
             {
                 response.add(new Pista(resultSet.getInt(1),
                         resultSet.getString(2),
-                        daoImpianti.findById(resultSet.getInt(3))));
+                        Dao_Impianti.getInstance().findById(resultSet.getInt(3))));
             }
 
             resultSet.close();

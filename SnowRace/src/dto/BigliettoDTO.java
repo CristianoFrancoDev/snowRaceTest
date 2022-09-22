@@ -59,4 +59,11 @@ public class BigliettoDTO
     {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "BIGLIETTO : " + " utente= " +   utente.getNome() +
+                ", pista=" + pista.getTitolo() +
+                ", data=" + data + "\n";
+    }
 }

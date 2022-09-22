@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+//singleton
 public class PistaConverter implements Converter<Pista, PistaDTO>
 {
     private static PistaConverter instance;

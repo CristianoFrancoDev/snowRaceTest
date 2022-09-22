@@ -9,15 +9,17 @@ public class UtenteDTO
     private String indirizzo;
     private String luogo;
     private Ruolo ruolo;
+    private String password;
     private boolean cancellato;
 
-    public UtenteDTO(int id, String nome, String indirizzo, String luogo, Ruolo ruolo, boolean cancellato)
+    public UtenteDTO(int id, String nome, String indirizzo, String luogo, Ruolo ruolo, String password, boolean cancellato)
     {
         this.id = id;
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.luogo = luogo;
         this.ruolo = ruolo;
+        this.password = password;
         this.cancellato = cancellato;
     }
 
@@ -71,6 +73,16 @@ public class UtenteDTO
         this.ruolo = ruolo;
     }
 
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
     public boolean isCancellato()
     {
         return cancellato;
@@ -79,5 +91,16 @@ public class UtenteDTO
     public void setCancellato(boolean cancellato)
     {
         this.cancellato = cancellato;
+    }
+
+    public String toString() {
+        return "Utente : \n " +
+                "nome='" + nome + '\n' +
+                " indirizzo='" + indirizzo + '\n' +
+                " luogo='" + luogo + '\n' +
+                " ruolo=" + ruolo + '\n' +
+                " password='" + password + '\n' +
+                " cancellato=" + cancellato
+                ;
     }
 }

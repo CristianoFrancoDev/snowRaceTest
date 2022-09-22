@@ -10,28 +10,34 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+//singleton
 public class Dao_Impianti
 {
     public final String QUERY_ALL = "SELECT * FROM impianti";
     public final String QUERY_CREATE = "INSERT INTO impianti (titolo, descrizione, foto, prezzo) VALUES (?, ?, ?, ?)";
     public final String QUERY_READ = "SELECT * FROM impianti WHERE id = ?";
-
     public final String QUERY_READ_LAST_SKY_FACILITY = "SELECT LAST_INSERT_ID()";
     public final String QUERY_UPDATE = "UPDATE impianti SET titolo = ?, descrizione = ?, foto = ?, prezzo = ? WHERE id = ?";
     public final String QUERY_DELETE = "DELETE FROM impianti WHERE id = ?";
-
     public final String QUERY_FILTER_BY_NAME_SKY_FACILITY = "SELECT * FROM impianti WHERE titolo = ?";
     public final String QUERY_PISTE_BY_NOME_IMPIANTO = "SELECT * FROM impianti INNER JOIN piste ON impianti.id = piste.id_impianto WHERE impianti.id = ?";
     public final String QUERY_PISTE_BY_ID_IMPIANTO = "SELECT * FROM piste WHERE id_impianto = ?";
-
+    private static Dao_Impianti instance;
     private  Connection connection;
 
-    /**
-     * Costruttore vuoto
-     */
-    public Dao_Impianti(){
+    private Dao_Impianti()
+    {
 
     }
+
+    public static Dao_Impianti getInstance()
+    {
+        if (instance == null)
+            instance = new Dao_Impianti();
+
+        return instance;
+    }
+
     public Impianto findById(int id)
     {
         Impianto impianto = null;
@@ -276,9 +282,7 @@ public class Dao_Impianti
 
     public ArrayList<String> filterByName(String name)
     {
-        Dao_Impianti daoImpianti = new Dao_Impianti();
-        Impianto impianto = daoImpianti.findByName(name);
-        Dao_Piste daoPiste = new Dao_Piste();
+        Impianto impianto = findByName(name);
 
         ArrayList<Impianto> response1 = new ArrayList<Impianto>();
         ArrayList<String> response2 = new ArrayList<String>();

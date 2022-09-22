@@ -48,15 +48,16 @@ public class AdminView extends Abstract_View implements View
         {
             case "A":
                 request.put("ADMIN", "ACCOUNT");
+                MainDispatcher.getInstance().callAction("ADMIN", "ACCOUNT", request);
                 break;
             case "P":
-                request.put("ADMIN", "PISTA");
+                request = new Request();
+                request.put("ADMIN", "MENU_PISTE");
+                MainDispatcher.getInstance().callAction("ADMIN", "MENU_PISTE", request);
                 break;
             default:
                 request.put("ADMIN", "EXIT");
                 break;
         }
-
-        MainDispatcher.getInstance().callAction("ADMIN", "DO_CONTROL", request);
     }
 }

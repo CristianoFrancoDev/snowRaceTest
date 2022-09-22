@@ -10,41 +10,57 @@ import java.util.List;
 
 public class PisteService implements Service<PistaDTO>
 {
-    PistaConverter pistaConverter;
-    Dao_Piste daoPiste;
+    private static PisteService instance;
+    private PistaConverter pistaConverter;
 
-    public PisteService()
+    private PisteService()
     {
         pistaConverter = PistaConverter.getInstance();
     }
 
+    public static PisteService getInstance()
+    {
+        if (instance == null)
+            instance = new PisteService();
+
+        return instance;
+    }
+
     public PistaDTO read(int id)
     {
-        daoPiste = new Dao_Piste();
-
-        Pista pista = daoPiste.findById(id);
+        Pista pista = Dao_Piste.getInstance().findById(id);
 
         return pistaConverter.toDTO(pista);
     }
 
     public boolean insert(PistaDTO pistaDTO)
     {
-        return daoPiste.save(pistaConverter.toEntity(pistaDTO));
+        return Dao_Piste.getInstance().save(pistaConverter.toEntity(pistaDTO));
     }
 
     public boolean update(PistaDTO pistaDTO)
     {
-        return daoPiste.save(pistaConverter.toEntity(pistaDTO));
+        return Dao_Piste.getInstance().save(pistaConverter.toEntity(pistaDTO));
     }
 
     public boolean delete(int id)
     {
-        return daoPiste.delete(id);
+        return Dao_Piste.getInstance().delete(id);
+    }
+
+    public PistaDTO findByTitolo (String titolo)
+    {
+        Pista pista =Dao_Piste.getInstance().findPista(titolo);
+
+        if (titolo == null)
+            return null;
+        else
+            return pistaConverter.toDTO(pista);
     }
 
     @Override
     public List<PistaDTO> getAll()
     {
-        return pistaConverter.toDTO(daoPiste.getAll());
+        return pistaConverter.toDTO(Dao_Piste.getInstance().getAll());
     }
 }

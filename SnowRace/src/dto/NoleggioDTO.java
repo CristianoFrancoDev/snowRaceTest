@@ -45,4 +45,11 @@ public class NoleggioDTO
     {
         this.biglietto = biglietto;
     }
+
+    @Override
+    public String toString() {
+        return " \n NOLEGGIO: " +
+                "  attrezzatura=" + attrezzatura.getArticolo() +
+                ", biglietto=" + biglietto.toString() ;
+    }
 }

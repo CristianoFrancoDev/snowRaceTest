@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+//singleton
 public class NoleggioConverter implements Converter<Noleggio, NoleggioDTO>
 {
     private static NoleggioConverter instance;

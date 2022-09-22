@@ -4,6 +4,7 @@ import interfaces.Controller;
 import service.UtentiService;
 import singleton.MainDispatcher;
 import util.Request;
+import util.VariabiliGlobali;
 
 public class HomeController implements Controller
 {
@@ -34,12 +35,16 @@ public class HomeController implements Controller
 
             if (userType == null)
                 {
+                    VariabiliGlobali.userName = null;
+
                     request = new Request();
                     request.put("PRINT", "Nome utente o password errati!");
                     MainDispatcher.getInstance().callAction("LOGIN", "PRINT", request);
                 }
             else
             {
+                VariabiliGlobali.userName = user.trim();
+
                 switch (userType)
                 {
                     case "AMMINISTRATORE":
@@ -52,12 +57,18 @@ public class HomeController implements Controller
                         MainDispatcher.getInstance().callView("UTENTE_VIEW", request);
                         break;
                     default:
+                        VariabiliGlobali.userName = null;
+
                         //ritorna alla login
                         MainDispatcher.getInstance().callView("LOGIN", null);
+                        break;
                 }
             }
         }
         else
-            MainDispatcher.getInstance().callView("LOGIN", null);
+            {
+                VariabiliGlobali.userName = null;
+                MainDispatcher.getInstance().callView("LOGIN", null);
+            }
     }
 }

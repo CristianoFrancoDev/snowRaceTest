@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+//singleton
 public class ImpiantoConverter implements Converter<Impianto, ImpiantoDTO>
 {
     private static ImpiantoConverter instance;

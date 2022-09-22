@@ -12,13 +12,11 @@ import java.util.List;
 
 public class ImpiantiService
 {
-    private Dao_Impianti daoImpianti;
     private ImpiantoConverter impiantoConverter;
     private PistaConverter pistaConverter;
 
     public ImpiantiService()
     {
-        daoImpianti = new Dao_Impianti();
         impiantoConverter = ImpiantoConverter.getInstance();
     }
 
@@ -27,7 +25,7 @@ public class ImpiantiService
         boolean response = false;
         Impianto impianto = impiantoConverter.toEntity(impiantoDTO);
 
-        if (daoImpianti.save(impianto))
+        if (Dao_Impianti.getInstance().save(impianto))
         {
             impiantoDTO.setId(impianto.getId());
             response = true;
@@ -38,17 +36,27 @@ public class ImpiantiService
 
     public boolean update(ImpiantoDTO impiantoDTO)
     {
-        return daoImpianti.save(impiantoConverter.toEntity(impiantoDTO));
+        return Dao_Impianti.getInstance().save(impiantoConverter.toEntity(impiantoDTO));
     }
 
     public boolean delete(ImpiantoDTO impiantoDTO)
     {
-        return daoImpianti.delete(impiantoConverter.toEntity(impiantoDTO));
+        return Dao_Impianti.getInstance().delete(impiantoConverter.toEntity(impiantoDTO));
     }
 
     public ImpiantoDTO read(int id)
     {
-        Impianto impianto = daoImpianti.findById(id);
+        Impianto impianto = Dao_Impianti.getInstance().findById(id);
+
+        if (impianto == null)
+            return null;
+        else
+            return impiantoConverter.toDTO(impianto);
+    }
+
+    public ImpiantoDTO findByTitolo(String titolo)
+    {
+        Impianto impianto = Dao_Impianti.getInstance().findByName(titolo);
 
         if (impianto == null)
             return null;
@@ -58,7 +66,7 @@ public class ImpiantiService
 
     public List<ImpiantoDTO> getAll()
     {
-        List<Impianto> impianti = daoImpianti.findAll();
+        List<Impianto> impianti = Dao_Impianti.getInstance().findAll();
 
         if (impianti == null)
             return null;
@@ -68,11 +76,21 @@ public class ImpiantiService
 
     public List<PistaDTO> getPiste(ImpiantoDTO impiantoDTO)
     {
-        List<Pista> piste = daoImpianti.getPiste(impiantoConverter.toEntity(impiantoDTO));
+        List<Pista> piste = Dao_Impianti.getInstance().getPiste(impiantoConverter.toEntity(impiantoDTO));
 
         if (piste == null)
             return null;
         else
             return pistaConverter.toDTO(piste);
+    }
+
+    public ImpiantoDTO findByName(String name)
+    {
+        Impianto impianto = Dao_Impianti.getInstance().findByName(name);
+
+        if (impianto == null)
+            return null;
+        else
+            return impiantoConverter.toDTO(impianto);
     }
 }

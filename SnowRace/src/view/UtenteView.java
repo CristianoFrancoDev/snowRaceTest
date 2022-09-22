@@ -3,6 +3,7 @@ package view;
 import abstracts.Abstract_View;
 import interfaces.View;
 import singleton.MainDispatcher;
+import test.Main;
 import util.Request;
 
 public class UtenteView extends Abstract_View implements View
@@ -32,6 +33,7 @@ public class UtenteView extends Abstract_View implements View
     public void showOption()
     {
         System.out.println("--- Opzioni utente ---");
+        System.out.println("(M)odifica profilo");
         System.out.println("(V)isualizza tutti gli impianti");
         System.out.println("(A)cquistare un biglietto");
         System.out.println("(N)oleggio attrezzatura");
@@ -53,8 +55,12 @@ public class UtenteView extends Abstract_View implements View
 
         switch (scelta.toUpperCase().trim())
         {
+            case "M":
+                MainDispatcher.getInstance().callAction("UTENTE", "UPDATE", null);
+                break;
             case "V":
                 request.put("UTENTE", "VISUALIZZA_IMPIANTI");
+                MainDispatcher.getInstance().callAction("UTENTE", "MOSTRA_IMPIANTI", request);
                 break;
             case "A":
                 request.put("UTENTE", "ACQUISTO_BIGLIETTI");
@@ -64,12 +70,15 @@ public class UtenteView extends Abstract_View implements View
                 break;
             case "D":
                 request.put("UTENTE", "PROFILO");
+                MainDispatcher.getInstance().callAction("UTENTE", "DATI_PERSONALI", request);
                 break;
             case "B":
                 request.put("UTENTE", "STORICO_BIGLIETTI");
+                MainDispatcher.getInstance().callAction("UTENTE", "STORICO_BIGLIETTI", request);
                 break;
             case "S":
                 request.put("UTENTE", "STORICO_NOLEGGI");
+                MainDispatcher.getInstance().callAction("UTENTE", "STORICO_NOLEGGI", request);
                 break;
             case "F":
                 request.put("UTENTE", "FILTRO_DATA");
@@ -85,6 +94,6 @@ public class UtenteView extends Abstract_View implements View
                 break;
         }
 
-        MainDispatcher.getInstance().callAction("UTENTE", "DO_CONTROL", request);
+//        MainDispatcher.getInstance().callAction("UTENTE", "DO_CONTROL", request);
     }
 }

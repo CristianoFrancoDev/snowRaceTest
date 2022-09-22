@@ -8,6 +8,10 @@ public class ImpiantoDTO
     private String foto;
     private double prezzo;
 
+    public ImpiantoDTO()
+    {
+    }
+
     public ImpiantoDTO(int id, String titolo, String descrizione, String foto, double prezzo)
     {
         this.id = id;
@@ -65,5 +69,14 @@ public class ImpiantoDTO
     public void setPrezzo(double prezzo)
     {
         this.prezzo = prezzo;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "  titolo='" + titolo.toUpperCase() + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                ", foto='" + foto + '\'' +
+                ", prezzo=" + prezzo + "\n";
     }
 }

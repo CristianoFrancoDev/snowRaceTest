@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+//singleton
 public class BigliettoConverter implements Converter<Biglietto, BigliettoDTO>
 {
     private static BigliettoConverter instance;

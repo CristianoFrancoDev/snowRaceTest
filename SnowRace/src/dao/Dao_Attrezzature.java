@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//singleton
 public class Dao_Attrezzature
 {
     private final String QUERY_ALL = "SELECT * FROM attrezzature";
@@ -13,14 +14,19 @@ public class Dao_Attrezzature
     private final String QUERY_READ = "SELECT * FROM attrezzature WHERE id = ?";
     private final String QUERY_UPDATE = "UPDATE attrezzature SET articolo = ? WHERE id = ?";
     private final String QUERY_DELETE = "UPDATE attrezzature SET articolo = ? WHERE id = ?";
-
+    private static Dao_Attrezzature instance;
     private Connection connection;
 
-    /**
-     * Costruttore vuoto
-     */
-    public Dao_Attrezzature()
+    private Dao_Attrezzature()
     {
+    }
+
+    public static Dao_Attrezzature getInstance()
+    {
+        if (instance == null)
+            instance = new Dao_Attrezzature();
+
+        return instance;
     }
 
     public Attrezzatura findById(int id)
