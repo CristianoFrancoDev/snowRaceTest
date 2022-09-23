@@ -1,14 +1,8 @@
 package controller;
 
-import dto.BigliettoDTO;
-import dto.NoleggioDTO;
-import dto.PistaDTO;
-import dto.UtenteDTO;
+import dto.*;
 import interfaces.Controller;
-import service.BigliettiService;
-import service.NoleggiService;
-import service.PisteService;
-import service.UtentiService;
+import service.*;
 import singleton.MainDispatcher;
 import util.Request;
 import util.VariabiliGlobali;
@@ -152,6 +146,26 @@ public class UtenteController implements Controller
                     request2.put("PRINT3", storicoNoleggiList);
                     MainDispatcher.getInstance().callAction("UTENTE", "PRINT7", request2);
                     break;
+                case "ACQUISTO_BIGLIETTO":
+                    BigliettoDTO bigliettoDTO = (BigliettoDTO) request.get("NUOVO_BIGLIETTO");
+//                    System.out.println(bigliettoDTO.getId());
+                    BigliettiService bigliettiService1 = new BigliettiService();
+                    bigliettiService1.insert(bigliettoDTO);
+                    request = new Request();
+                    request.put("PRINT8","ACQUISTO EFFETTUATO CORRETTAMENTE");
+                    MainDispatcher.getInstance().callAction("UTENTE", "PRINT8", request);
+                    break;
+                case "ACQUISTO_NOLEGGIO":
+                    AttrezzaturaDTO attrezzaturaDTO = AttrezzatureService.getInstance().read((Integer) request.get("Id_Attrezzatura"));
+                            BigliettiService bigliettiService2 = new BigliettiService();
+                    BigliettoDTO bigliettoDTO1 = bigliettiService2.read((Integer) request.get("Id_Ticket"));
+
+                    NoleggioDTO noleggioDTO = new NoleggioDTO(0,attrezzaturaDTO, bigliettoDTO1 );
+                    NoleggiService noleggiService1 = new NoleggiService();
+                    noleggiService1.insert(noleggioDTO);
+                    request = new Request();
+                    request.put("PRINT9","NOLEGGIO ATTREZZATURA EFFETTUATO CORRETTAMENTE");
+                    MainDispatcher.getInstance().callAction("UTENTE", "PRINT9", request);
             }
         }
     }

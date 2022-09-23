@@ -2,6 +2,12 @@ package dto;
 
 public class AttrezzaturaDTO
 {
+    @Override
+    public String toString() {
+        return "Attrezzatura : \n" +
+                " nome articolo ='" + articolo + '\'' ;
+    }
+
     private int id;
     private String articolo;
 

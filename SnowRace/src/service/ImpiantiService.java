@@ -13,7 +13,7 @@ import java.util.List;
 public class ImpiantiService
 {
     private ImpiantoConverter impiantoConverter;
-    private PistaConverter pistaConverter;
+//    private PistaConverter pistaConverter;
 
     public ImpiantiService()
     {
@@ -76,12 +76,13 @@ public class ImpiantiService
 
     public List<PistaDTO> getPiste(ImpiantoDTO impiantoDTO)
     {
+
         List<Pista> piste = Dao_Impianti.getInstance().getPiste(impiantoConverter.toEntity(impiantoDTO));
 
         if (piste == null)
             return null;
         else
-            return pistaConverter.toDTO(piste);
+            return PistaConverter.getInstance().toDTO(piste);
     }
 
     public ImpiantoDTO findByName(String name)

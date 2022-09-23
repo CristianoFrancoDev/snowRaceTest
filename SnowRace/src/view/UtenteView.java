@@ -64,9 +64,13 @@ public class UtenteView extends Abstract_View implements View
                 break;
             case "A":
                 request.put("UTENTE", "ACQUISTO_BIGLIETTI");
+                MainDispatcher.getInstance().callAction("UTENTE", "ACQUISTO_BIGLIETTO", request);
+
                 break;
             case "N":
                 request.put("UTENTE", "NOLEGGIO");
+                MainDispatcher.getInstance().callAction("UTENTE", "NOLEGGIO", request);
+
                 break;
             case "D":
                 request.put("UTENTE", "PROFILO");

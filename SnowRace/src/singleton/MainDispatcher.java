@@ -113,6 +113,16 @@ public class MainDispatcher implements Dispatcher
                 modificaUtenteView.showOption();
                 modificaUtenteView.submit();
                 break;
+            case "ACQUISTOBIGLIETTO_VIEW":
+                AcquistoBigliettoView acquistoBigliettoView = AcquistoBigliettoView.getInstance();
+                acquistoBigliettoView.showOption();
+                acquistoBigliettoView.submit();
+                break;
+            case "NOLEGGIO_VIEW":
+                NoleggioView noleggioView = NoleggioView.getInstance();
+                noleggioView.showOption();
+                noleggioView.submit();
+                break;
             case "MODIFICAPISTA_VIEW":
                 ModificaPistaView modificaPistaView = ModificaPistaView.getInstance();
                 modificaPistaView.showOption();
@@ -457,6 +467,28 @@ public class MainDispatcher implements Dispatcher
                         break;
                     case "PRINT7":
                         AllNoleggiView.getInstance().showResults(request);
+                        break;
+                    case "ACQUISTO_BIGLIETTO":
+                        callView("ACQUISTOBIGLIETTO_VIEW", null);
+                        break;
+                    case "ACQUISTO_TICKET":
+                        request.put("OPERATION","ACQUISTO_BIGLIETTO");
+                        UtenteController.getInstance().doControl(request);
+                        break;
+                    case "PRINT8":
+                        AcquistoBigliettoView.getInstance().showResults(request);
+                        callView("UTENTE_VIEW", null);
+                        break;
+                    case "NOLEGGIO":
+                        callView("NOLEGGIO_VIEW", null);
+                        break;
+                    case "ACQUISTO_NOLEGGIO":
+                        request.put("OPERATION","ACQUISTO_NOLEGGIO");
+                        UtenteController.getInstance().doControl(request);
+                        break;
+                    case "PRINT9":
+                        NoleggioView.getInstance().showResults(request);
+                        callView("UTENTE_VIEW", null);
                         break;
                 }
 
