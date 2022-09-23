@@ -86,12 +86,15 @@ public class UtenteView extends Abstract_View implements View
                 break;
             case "F":
                 request.put("UTENTE", "FILTRO_DATA");
+                MainDispatcher.getInstance().callAction("UTENTE", "FILTRO_DATA", null);
                 break;
             case "I":
                 request.put("UTENTE", "FILTRO_IMPIANTI");
+                MainDispatcher.getInstance().callAction("UTENTE", "FILTRO_IMPIANTI", request);
                 break;
             case "P":
                 request.put("UTENTE", "FILTRO_PISTE");
+                MainDispatcher.getInstance().callAction("UTENTE", "FILTRO_PISTE", request);
                 break;
             default:
                 request.put("UTENTE", "EXIT");

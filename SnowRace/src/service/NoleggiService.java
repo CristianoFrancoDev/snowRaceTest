@@ -9,16 +9,25 @@ import model.Noleggio;
 import model.Utente;
 import util.VariabiliGlobali;
 
-import java.util.ArrayList;
 import java.util.List;
 
+//classe singleton
 public class NoleggiService implements Service<NoleggioDTO>
 {
-    NoleggioConverter noleggioConverter = NoleggioConverter.getInstance();
+    private static NoleggiService instance;
+    NoleggioConverter noleggioConverter;
 
-    public NoleggiService()
+    private NoleggiService()
     {
         this.noleggioConverter = NoleggioConverter.getInstance();
+    }
+
+    public static NoleggiService getInstance()
+    {
+        if (instance == null)
+            instance = new NoleggiService();
+
+        return instance;
     }
 
     public List<NoleggioDTO> getAllByUser(){

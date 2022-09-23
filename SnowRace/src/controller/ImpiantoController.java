@@ -16,7 +16,7 @@ public class ImpiantoController implements Controller
 
     private ImpiantoController()
     {
-        impiantiService = new ImpiantiService();
+        impiantiService = ImpiantiService.getInstance();
     }
 
     public static ImpiantoController getInstance()

@@ -47,8 +47,7 @@ public class PistaController implements Controller
             switch (request.getString("OPERATION"))
             {
                 case "CREATE":
-                    ImpiantiService impiantiService = new ImpiantiService();
-                    ImpiantoDTO impiantoDTO = impiantiService.findByName(request.getString("NOME_IMPIANTO"));
+                    ImpiantoDTO impiantoDTO = ImpiantiService.getInstance().findByName(request.getString("NOME_IMPIANTO"));
                     System.out.println(impiantoDTO.getId());
                     PistaDTO pistaDTO = new PistaDTO(0, request.getString("NOME_PISTA"),impiantoDTO );
                     System.out.println(pistaDTO.getTitolo());
@@ -84,7 +83,6 @@ public class PistaController implements Controller
                     break;
                 case "MODIFY":
                     try{
-                        ImpiantiService impiantiService2 = new ImpiantiService();
                         ImpiantoDTO impiantoDTO2 = pisteService.read((Integer) request.get("ID_PISTA")).getImpianto();
                         PistaDTO pistaDTO2 = new PistaDTO((Integer) request.get("ID_PISTA"), request.getString("NOME_PISTA"), impiantoDTO2 );
                         System.out.println(pistaDTO2.getId());

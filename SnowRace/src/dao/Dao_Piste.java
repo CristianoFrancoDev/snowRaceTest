@@ -73,7 +73,6 @@ public class Dao_Piste
     public Pista findPista(String titolo)
     {
         Pista response = null;
-        ImpiantiService impiantiService = new ImpiantiService();
 
         connection = LinkDB.getConnection();
 
@@ -90,7 +89,7 @@ public class Dao_Piste
                 {
                     if (resultSet.next())
                     {
-                        Impianto impianto = ImpiantoConverter.getInstance().toEntity(impiantiService.read(resultSet.getInt(3)));
+                        Impianto impianto = ImpiantoConverter.getInstance().toEntity(ImpiantiService.getInstance().read(resultSet.getInt(3)));
 
                         response = new Pista(resultSet.getInt(1),
                                 resultSet.getString(2),

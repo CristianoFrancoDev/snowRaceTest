@@ -66,9 +66,9 @@ public class HomeController implements Controller
             }
         }
         else
-            {
+        {
                 VariabiliGlobali.userName = null;
                 MainDispatcher.getInstance().callView("LOGIN", null);
-            }
+        }
     }
 }

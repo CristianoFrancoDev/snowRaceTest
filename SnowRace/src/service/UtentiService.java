@@ -7,6 +7,7 @@ import interfaces.Service;
 import model.Utente;
 import java.util.List;
 
+//classe singleton
 public class UtentiService implements Service<UtenteDTO>
 {
     private static UtentiService instance;

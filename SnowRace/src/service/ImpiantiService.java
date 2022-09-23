@@ -10,14 +10,23 @@ import model.Pista;
 
 import java.util.List;
 
+//classe singleton
 public class ImpiantiService
 {
+    private static ImpiantiService instance;
     private ImpiantoConverter impiantoConverter;
-//    private PistaConverter pistaConverter;
 
-    public ImpiantiService()
+    private ImpiantiService()
     {
         impiantoConverter = ImpiantoConverter.getInstance();
+    }
+
+    public static ImpiantiService getInstance()
+    {
+        if (instance == null)
+            instance = new ImpiantiService();
+
+        return instance;
     }
 
     public boolean insert(ImpiantoDTO impiantoDTO)

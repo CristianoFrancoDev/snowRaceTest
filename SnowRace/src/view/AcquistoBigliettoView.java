@@ -59,8 +59,7 @@ public class AcquistoBigliettoView extends Abstract_View implements View
         data = getInput();
 
         PisteService.getInstance();
-        ImpiantiService impiantiService = new ImpiantiService();
-        impiantoDTOList = impiantiService.getAll();
+        impiantoDTOList = ImpiantiService.getInstance().getAll();
         System.out.println("\n i nostri impianti: \n ");
 
         for (int i = 0; i < impiantoDTOList.size(); i++)
@@ -71,9 +70,9 @@ public class AcquistoBigliettoView extends Abstract_View implements View
         nomeImpianto = getInput();
 
 
-        impiantoDTO = impiantiService.findByName(nomeImpianto);
+        impiantoDTO = ImpiantiService.getInstance().findByName(nomeImpianto);
         System.out.println(impiantoDTO.getDescrizione());
-        listaPiste = impiantiService.getPiste(impiantoDTO);
+        listaPiste = ImpiantiService.getInstance().getPiste(impiantoDTO);
         System.out.println("\n ecco le piste dell'impianto \n " + nomeImpianto);
         for (int i = 0; i < listaPiste.size(); i++)
         {

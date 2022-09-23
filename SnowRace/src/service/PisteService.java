@@ -8,6 +8,7 @@ import model.Pista;
 
 import java.util.List;
 
+//classe singleton
 public class PisteService implements Service<PistaDTO>
 {
     private static PisteService instance;

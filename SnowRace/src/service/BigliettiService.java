@@ -1,33 +1,44 @@
 package service;
 
 import converter.BigliettoConverter;
+import converter.PistaConverter;
 import converter.UtenteConverter;
 import dao.Dao_Biglietti;
 import dto.BigliettoDTO;
+import dto.PistaDTO;
 import dto.UtenteDTO;
 import interfaces.Service;
 import model.Biglietto;
 import model.Utente;
 import util.VariabiliGlobali;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+//classe singleton
 public class BigliettiService implements Service<BigliettoDTO>
 {
+    private static BigliettiService instance;
     BigliettoConverter bigliettoConverter;
 
-    public BigliettiService()
+    private BigliettiService()
     {
         bigliettoConverter = BigliettoConverter.getInstance();
     }
 
+    public static BigliettiService getInstance()
+    {
+        if (instance == null)
+            instance = new BigliettiService();
+
+        return instance;
+    }
+
     public List<BigliettoDTO> findByLoggedUser ()
     {
-            Dao_Biglietti daoBiglietti1 =  Dao_Biglietti.getInstance();
             ArrayList<BigliettoDTO> listBigliettiDTO ;
             Utente utente = UtenteConverter.getInstance().toEntity(UtentiService.getInstance().findByName(VariabiliGlobali.userName));
-            List<Biglietto> listaBiglietti = daoBiglietti1.findByUser(utente);
+            List<Biglietto> listaBiglietti = Dao_Biglietti.getInstance().findByUser(utente);
             listBigliettiDTO = new ArrayList<>(bigliettoConverter.toDTO(listaBiglietti));
 
             return listBigliettiDTO;
@@ -59,5 +70,31 @@ public class BigliettiService implements Service<BigliettoDTO>
     public List<BigliettoDTO> getAll()
     {
         return bigliettoConverter.toDTO(Dao_Biglietti.getInstance().getAll());
+    }
+
+    public List<BigliettoDTO> filterByPista(PistaDTO pistaDTO, UtenteDTO utenteDTO)
+    {
+        List<BigliettoDTO> bigliettoDTOList = new ArrayList<>();
+        List<Biglietto> bigliettoList = new ArrayList<>();
+        bigliettoList = Dao_Biglietti.getInstance().filterByPista(PistaConverter.getInstance().toEntity(pistaDTO),UtenteConverter.getInstance().toEntity(utenteDTO));
+        bigliettoDTOList = BigliettoConverter.getInstance().toDTO(bigliettoList);
+        return bigliettoDTOList;
+    }
+
+    public List<BigliettoDTO> filterByDate(UtenteDTO utenteDTO, LocalDate from, LocalDate to)
+    {
+        Utente utente = UtenteConverter.getInstance().toEntity(utenteDTO);
+        ArrayList<Biglietto> biglietti = Dao_Biglietti.getInstance().filterBigliettiByData(utente, from, to);
+
+        return BigliettoConverter.getInstance().toDTO(biglietti);
+    }
+
+    public List<BigliettoDTO> filterByImpianto(String titolo, UtenteDTO utenteDTO)
+    {
+        List<BigliettoDTO> bigliettoDTOList = new ArrayList<>();
+        List<Biglietto> bigliettoList = new ArrayList<>();
+        bigliettoList = Dao_Biglietti.getInstance().filterByImpianto(titolo,UtenteConverter.getInstance().toEntity(utenteDTO));
+        bigliettoDTOList = BigliettoConverter.getInstance().toDTO(bigliettoList);
+        return bigliettoDTOList;
     }
 }

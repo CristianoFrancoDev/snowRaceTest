@@ -14,10 +14,12 @@ import java.util.List;
 public class ModificaUtenteView extends Abstract_View implements View
 {
     private static ModificaUtenteView instance;
-    String nome, indirizzo, luogo, password;
+    String userToChange, nome, indirizzo, luogo, password;
+    private boolean askName;
 
     private ModificaUtenteView()
-    {}
+    {
+    }
 
     public static ModificaUtenteView getInstance()
     {
@@ -25,6 +27,16 @@ public class ModificaUtenteView extends Abstract_View implements View
             instance = new ModificaUtenteView();
 
         return instance;
+    }
+
+    public boolean isAskName()
+    {
+        return askName;
+    }
+
+    public void setAskName(boolean askName)
+    {
+        this.askName = askName;
     }
 
     @Override
@@ -40,6 +52,17 @@ public class ModificaUtenteView extends Abstract_View implements View
     public void showOption() {
         {
             System.out.println("--- Modifica di un utente ---");
+
+            if (askName)
+            {
+                //richiesta nome da modificare
+                do
+                {
+                    System.out.println("Inserire nome utente di cui modificare il profilo: ");
+                    userToChange = getInput();
+                }
+                while (userToChange == null || userToChange.isBlank());
+            }
 
             //richiesta nome
             do
@@ -71,6 +94,10 @@ public class ModificaUtenteView extends Abstract_View implements View
     public void submit()
     {
         Request request = new Request();
+
+        if (askName)
+            request.put("USERNAME_TO_EDIT", userToChange.trim());
+
         request.put("NOME", nome.trim());
 
         if (indirizzo == null || indirizzo.isBlank())
@@ -85,6 +112,9 @@ public class ModificaUtenteView extends Abstract_View implements View
 
         request.put("PASSWORD", password.trim());
 
-        MainDispatcher.getInstance().callAction("UTENTE", "UPDATE_ACCOUNT", request);
+        if (askName)
+            MainDispatcher.getInstance().callAction("AMMINISTRATORE", "UPDATE_ACCOUNT", request);
+        else
+            MainDispatcher.getInstance().callAction("UTENTE", "UPDATE_ACCOUNT", request);
     }
 }

@@ -1,12 +1,8 @@
 package singleton;
 
-import controller.HomeController;
-import controller.ImpiantoController;
-import controller.PistaController;
-import controller.UtenteController;
+import controller.*;
 import dto.UtenteDTO;
 import interfaces.Dispatcher;
-import util.CryptoHelper;
 import util.Request;
 import util.VariabiliGlobali;
 import view.*;
@@ -32,6 +28,15 @@ public class MainDispatcher implements Dispatcher
     {
         switch (view)
         {
+            case "FILTROIMPIANTI_VIEW":
+                FilterByImpiantoView filterByImpiantoView = FilterByImpiantoView.getInstance();
+                filterByImpiantoView.showOption();
+                filterByImpiantoView.submit();
+                break;
+            case "START_VIEW":
+                StartView.getInstance().showOption();
+                StartView.getInstance().submit();
+                break;
             case "LOGIN_VIEW":
                 LoginView loginView = LoginView.getInstance();
                 loginView.showResults(request);
@@ -110,6 +115,7 @@ public class MainDispatcher implements Dispatcher
                 break;
             case "MODIFICAUTENTE_VIEW":
                 ModificaUtenteView modificaUtenteView = ModificaUtenteView.getInstance();
+                modificaUtenteView.setAskName((boolean) request.get("ASK_NAME"));
                 modificaUtenteView.showOption();
                 modificaUtenteView.submit();
                 break;
@@ -139,6 +145,19 @@ public class MainDispatcher implements Dispatcher
                 EliminaPistaView.getInstance().showOption();
                 EliminaPistaView.getInstance().submit();
                 break;
+            case "REGISTRAZIONE_VIEW":
+                RegistrazioneView.getInstance().showOption();
+                RegistrazioneView.getInstance().submit();
+                break;
+            case "FILTROPISTE_VIEW":
+                FilterByPistaView filterByPistaView = FilterByPistaView.getInstance();
+                filterByPistaView.showOption();
+                filterByPistaView.submit();
+                break;
+            case "FILTERBYDATA_VIEW":
+                FilterByDataView.getInstance().showOption();
+                FilterByDataView.getInstance().submit();
+                break;
         }
     }
 
@@ -149,11 +168,24 @@ public class MainDispatcher implements Dispatcher
 
         switch (controller)
         {
+            case "START":
+                switch (action)
+                {
+                    case "DO_CONTROL":
+                        callView("START_VIEW", null);
+                        break;
+                }
+
+                break;
+            case "REGISTRAZIONE":
+                callView("REGISTRAZIONE_VIEW", null);
+                callView("START_VIEW", null);
+                break;
             case "LOGIN":
                 switch (action)
                 {
                     case "DO_CONTROL":
-
+                        callView("LOGIN_VIEW", null);
                         break;
                     case "PRINT":
                         LoginView.getInstance().showResults(request);
@@ -221,7 +253,7 @@ public class MainDispatcher implements Dispatcher
                         break;
                     case "ELIMINA_ACCOUNT":
                         callView("ADMINELIMINA_VIEW", null);
-                        callView("ADMINOPTIONS_VIEW", null);
+                        callView("START_VIEW", null);
                         break;
                     case "DELETE_ACCOUNT":
                         utenteDTO = UtenteController.getInstance().getUser(VariabiliGlobali.userName);
@@ -304,7 +336,10 @@ public class MainDispatcher implements Dispatcher
                                 callView("AMMINISTRATORE_VIEW", null);
                                 break;
                             case "UTENTI":
-                                callView("MODIFICAUTENTE_VIEW", null);
+                                request = new Request();
+                                request.put("ASK_NAME", true);
+
+                                callView("MODIFICAUTENTE_VIEW", request);
                                 break;
                             case "PISTE":
                                 callView("MODIFICAPISTA_VIEW", null);
@@ -335,6 +370,22 @@ public class MainDispatcher implements Dispatcher
                                 callAction("AMMINISTRATORE", "MENU_PISTE", null);
                                 break;
                         }
+
+                        break;
+                    case "UPDATE_ACCOUNT":
+                        utenteDTO = UtenteController.getInstance().getUser(request.getString("USERNAME_TO_EDIT"));
+                        utenteDTO.setNome(request.getString("NOME"));
+                        utenteDTO.setIndirizzo(request.getString("INDIRIZZO"));
+                        utenteDTO.setLuogo(request.getString("LUOGO"));
+                        utenteDTO.setPassword(request.getString("PASSWORD"));
+
+                        request = new Request();
+                        request.put("OPERATION", "EDIT");
+                        request.put("DATI", utenteDTO);
+
+                        AmministratoreController.getInstance().doControl(request);
+                        ModificaUtenteView.getInstance().showResults(request);
+                        callView("AMMINISTRATORE_VIEW", null);
 
                         break;
                     case "ELIMINA":
@@ -399,6 +450,20 @@ public class MainDispatcher implements Dispatcher
             case "UTENTE":
                 switch (action)
                 {
+                    case "FILTRO_DATA":
+                        callView("FILTERBYDATA_VIEW", null);
+                        callView("UTENTE_VIEW", null);
+                        break;
+                    case "FILTER_BY_DATE":
+                        request.put("OPERATION", "FILTER_DATE");
+                        UtenteController.getInstance().doControl(request);
+                        FilterByDataView.getInstance().showResults(request);
+                        break;
+                    case "REGISTRAZIONE":
+                        request.put("OPERATION", "REGISTRAZIONE");
+                        UtenteController.getInstance().doControl(request);
+                        RegistrazioneView.getInstance().showResults(request);
+                        break;
                     case "PRINT4":
                         AllImpiantiView.getInstance().showResults(request);
                         break;
@@ -408,7 +473,10 @@ public class MainDispatcher implements Dispatcher
                         callAction("AMMINISTRATORE", "MENU_UTENTI", null);
                         break;
                     case "UPDATE":
-                        callView("MODIFICAUTENTE_VIEW", null);
+                        request = new Request();
+                        request.put("ASK_NAME", false);
+
+                        callView("MODIFICAUTENTE_VIEW", request);
                         callView("UTENTE_VIEW", null);
                         break;
                     case "UPDATE_ACCOUNT":
@@ -488,6 +556,28 @@ public class MainDispatcher implements Dispatcher
                         break;
                     case "PRINT9":
                         NoleggioView.getInstance().showResults(request);
+                        callView("UTENTE_VIEW", null);
+                        break;
+                    case "FILTRO_PISTE":
+                        callView("FILTROPISTE_VIEW", null);
+                        break;
+                    case "FILTER_BY_PISTA":
+                        request.put("OPERATION","FILTER_BY_PISTA");
+                        UtenteController.getInstance().doControl(request);
+                        break;
+                    case "PRINT_BY_PISTA":
+                        FilterByPistaView.getInstance().showResults(request);
+                        callView("UTENTE_VIEW", null);
+                        break;
+                    case "FILTRO_IMPIANTI":
+                        callView("FILTROIMPIANTI_VIEW", null);
+                        break;
+                    case "FILTER_IMPIANTO":
+                        request.put("OPERATION","FILTER_IMPIANTO");
+                        UtenteController.getInstance().doControl(request);
+                        break;
+                    case "PRINT_BY_IMPIANTO":
+                        FilterByImpiantoView.getInstance().showResults(request);
                         callView("UTENTE_VIEW", null);
                         break;
                 }

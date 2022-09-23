@@ -27,7 +27,7 @@ public class NoleggioView extends Abstract_View implements View
     private List<NoleggioDTO> noleggioDTOList;
     private List<AttrezzaturaDTO> attrezzaturaDTOList;
     private String data1,data2;
-
+    private String scelta;
     int id_Ticket,id_Attrezzo;
     private BigliettoDTO bigliettoDTO;
     private NoleggioView()
@@ -55,13 +55,7 @@ public class NoleggioView extends Abstract_View implements View
     {
         System.out.println("---- NOLEGGIO ATTREZZATURA ----");
 
-//        System.out.println("Inserisci la prima Data (YYYY-MM-AA)");
-//        data1 = getInput();
-//        System.out.println("Inserisci la seconda Data (YYYY-MM-AA)");
-//        data2 = getInput();
-
-        BigliettiService bigliettiService = new BigliettiService();
-        List<BigliettoDTO> storicoBigliettiList = bigliettiService.findByLoggedUser();
+        List<BigliettoDTO> storicoBigliettiList = BigliettiService.getInstance().findByLoggedUser();
 
         for (int i = 0; i < storicoBigliettiList.size(); i++) {
             BigliettoDTO bigliettoDTO = (storicoBigliettiList.get(i));
@@ -70,7 +64,20 @@ public class NoleggioView extends Abstract_View implements View
 
         Scanner scanner1 = new Scanner(System.in);
         System.out.println("Seleziona ID biglietto da associare : ");
-        id_Ticket = scanner1.nextInt();
+
+        while (true)
+        {
+            scelta = getInput();
+
+            try
+            {
+                id_Ticket = Integer.parseInt(scelta);
+                break;
+            }
+            catch (Exception ex)
+            {
+            }
+        }
 
         attrezzaturaDTOList = AttrezzatureService.getInstance().getAll();
         for (int i = 0; i < attrezzaturaDTOList.size(); i++) {
@@ -79,7 +86,19 @@ public class NoleggioView extends Abstract_View implements View
         }
 
         System.out.println("Seleziona ID articolo da noleggiare : ");
-        id_Attrezzo = scanner1.nextInt();
+
+        scelta = getInput();
+
+        while (true)
+        {
+            try
+            {
+                id_Attrezzo = Integer.parseInt(scelta);
+                break;
+            }
+            catch (Exception ex)
+            {}
+        }
 
 
         //        bigliettoDTO = new BigliettoDTO(0, UtentiService.getInstance().findByName(VariabiliGlobali.userName),pistaDTO,localDate);
